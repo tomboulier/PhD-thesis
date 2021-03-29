@@ -1,0 +1,635 @@
+% *************** Document style definitions ***************
+
+% ******************************************************************
+% This file defines the document design.
+% Usually it is not necessary to edit this file, but you can change
+% the design if you want.
+% ******************************************************************
+
+% *************** Load packages ***************
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{longtable}
+\usepackage[figuresright]{rotating}
+\usepackage[utf8]{inputenc}
+% \usepackage[francais]{babel}
+\usepackage{esint}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\let\c@lofdepth\relax
+\let\c@lotdepth\relax
+\makeatother
+\usepackage{subfigure}
+% \RequirePackage[caption=false,position=top]{subfig}
+% \let\subtop\subfloat
+% \usepackage{subfig}
+\usepackage{verbatim} % for multiline comment
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{color}
+\usepackage{citeref}
+\usepackage{memhfixc}
+\usepackage{mathdots}
+% \usepackage[pagebackref,colorlinks=true,pdfpagemode=none,urlcolor=blue,
+% linkcolor=blue,citecolor=blue]{hyperref}
+\RequirePackage{bbm,latexsym,amsmath,amssymb,amsfonts,hyperref,url,stmaryrd,
+  multirow}
+  
+  
+  
+
+%%%%% THEOREMS %%%%%
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{example}{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\renewenvironment{proof}[1][Proof]{\noindent{\itshape {#1.} } }{$\Box$ 
+\medskip} 
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+\def\QED{\ensuremath{{\square}}}
+\renewcommand{\qed}{\hfill $\Box$ \medskip}
+\theoremstyle{remark}
+\newtheorem{rmk}{Remark}[section]
+\newtheorem*{note}{Note}
+\newtheorem{case}{Case}
+% \declaretheorem[thmbox=M]{Theorem}
+
+%%%%%%%%%% MACROS  %%%%%%
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\V}{\mathbf{V}}
+
+\newcommand{\Pb}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathcal{F}}
+
+\newcommand{\eps}{\varepsilon}
+% \newcommand{\Mcc}{\mathbf{N}}
+\newcommand{\Mcgpt}{\mathbf{M}}
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\Ccoef}{\mathbf{C}}
+\newcommand{\Dcoef}{\mathbf{D}}
+\newcommand{\Acoef}{\mathbf{A}}
+\newcommand{\SNR}{\mathrm{SNR}}
+
+\def\dico{{\mathcal{D}}}
+\def\No{\mathbf{N}^{(1)}}
+\def\Nt{\mathbf{N}^{(2)}}
+\def\Yo{Y^{(1)}}
+\def\Yt{Y^{(2)}}
+\def\tsr{{T_zsR_\theta}}
+\def\yr{e^{i\theta}}
+\def\ie{\emph{i.e.}}
+\def\norm#1{{\left\|#1\right\|}}
+\def\abs#1{{\left |#1\right |}}
+
+\def\Tau{\mathcal{J}}
+\def\Tauo{\Tau^{(1)}}
+\def\Taut{\Tau^{(2)}}
+\def\Scl{\mathcal{S}}
+\def\Sclo{\Scl^{(1)}}
+\def\Sclt{\Scl^{(2)}}
+\def\Dcrp{\mathcal{I}}
+\def\Dcrpo{\Dcrp^{(1)}}
+\def\Dcrpt{\Dcrp^{(2)}}
+
+\def\TODO{\textcolor{red}{\textbf{--TODO--}}}
+\def\BUG{\textcolor{red}{\textbf{--Bug--}}}
+\def\EE{\mathbb{E}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\dis}{\displaystyle}
+\newcommand{\nm}{\noalign{\smallskip}}
+\newcommand{\cqfd}{\hfill $\square$}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+
+\def\nm{\noalign{\medskip}}
+\def\Tauoj{\Tau^{(j)}}
+\def\Scloj{\Scl^{(j)}}
+
+%%%%%% For tracking.tex %%%%%%%%%%%%%%%%
+\newcommand{\normallaw}[1]{\mathcal{N}(0, #1)}
+
+%\newcommand{\dico}{\mathcal{D}}
+%\newcommand{\tsr}{T_z s R_\theta}
+
+% Font
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bC}{\mathbf{C}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bE}{\mathbf{E}}
+\newcommand{\bF}{\mathbf{F}}
+\newcommand{\bG}{\mathbf{G}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bL}{\mathbf{L}}
+\newcommand{\bM}{\mathbf{M}}
+\newcommand{\bQ}{\mathbf{Q}}
+\newcommand{\bT}{\mathbf{T}}
+\newcommand{\bV}{\mathbf{V}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bJ}{\mathbf{J}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\bX}{\mathbf{X}}
+
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bz}{\mathbf{z}}
+
+\newcommand{\BId}{\mathbf{I}}
+
+% CGPT
+\newcommand{\Mcc}{\mathbf{M}^{cc}}
+\newcommand{\Mcs}{\mathbf{M}^{cs}}
+\newcommand{\Msc}{\mathbf{M}^{sc}}
+\newcommand{\Mss}{\mathbf{M}^{ss}}
+
+%\newcommand\No{\mathbf{N}^{(1)}}
+%\newcommand\Nt{\mathbf{N}^{(2)}}
+
+\newcommand{\To}{\mbf T^{(1)}}
+\newcommand{\Tt}{\mbf T^{(2)}}
+
+\newcommand{\Ttop}{{J}}
+\newcommand{\bSigma}{\mathbf{\Sigma}}
+%\newcommand{\bMest}{\bM^{\text{est}}}
+
+% Kalman filter
+\newcommand{\xtt}{\hat{x}_{t|t}}
+\newcommand{\xtn}{\hat{x}_{t|t-1}}
+\newcommand{\xnn}{\hat{x}_{t-1|t-1}}
+%\newcommand{\Yt}{Y_{1:t}}
+\newcommand{\Ye}{{\tilde{Y}}}
+
+
+\def\Fmat{\mathbf{F}_t} 
+\def\Ft{\mbf C^{z_t}\mbf G^{\theta_t}} 
+\def\Jmat{\mathbf{J}_t}
+\newcommand{\oov}{u} 
+\newcommand{\bMest}{\bM^{\text{est}}} 
+
+\newcommand{\cond}[1]{\operatorname{cond}(#1)}
+\newcommand{\ignore}[2]{\hspace{0in}#2}
+\newcommand{\stdnoise}{\sigma_{\text{noise}}}
+
+
+\def\mpn{\frac{m+n}{2}}
+\def\mqn{\frac{m-n}{2}}
+\def\fsin{\tilde\psi}
+\def\fcos{\psi}
+\def\bB{\mbf B}
+\def\th{\tilde h}
+\def\VfN{V_{\floor{N/2}}}
+\def\DfN{D_{\floor{N/2}}}
+\def\invpi{\frac{1}{2\pi}}
+\def\tn{\frac{2\pi n}N}
+
+\def\CtC{\bC^\top\bC}
+\def\DCtCD{\bD\bC^\top\bC\bD}
+\def\tbC{\tilde\bC}
+
+% ----------------------------------------------------------------------
+%  Common abbreviations and words with accents
+% ----------------------------------------------------------------------
+
+% ---- LATIN ----
+\def\etal{\emph{et~al.}}
+\def\ie{\emph{i.e.~}}
+\def\etc{\emph{etc.~}}
+\def\eg{\emph{e.g.~}}
+\def\vitae{vit\ae{}}
+\def\apriori{\emph{a~priori~}}
+\def\aposteriori{\emph{a~posteriori~}}
+\def\adhoc{\emph{ad~hoc~}}
+\def\defacto{\emph{de~facto~}}
+\def\wrt{w.r.t.~}
+
+% ---- Abbr words used in math env
+\def\so{\text{ so }}
+\def\st{\text{ s.t. }}
+\def\as{\text{ as }}
+\def\for{\text{ for }}
+\def\andd{\text{ and }}
+\def\with{\text{ with }}
+\def\when{\text{ when }}
+\def\where{\text{ where }}
+
+\def\TODO{\textcolor{red}{\textbf{--TODO--}}}
+\def\BUG{\textcolor{red}{\textbf{--Bug--}}}
+
+% ----------------------------------------------------------------------
+%  Basic mathematics
+% ----------------------------------------------------------------------
+
+%
+%  These two look okay in Computer Modern 11pt, or Concrete Roman
+%  12pt, but they need serious work in other sizes.  I need to figure
+%  out how to draw a vertical bar, or better yet a shallow arc, inside
+%  the bowls.  Or maybe I need to learn METAFONT.
+%
+
+\def\Real{\mathbb{R}}
+\def\Proj{\mathbb{P}}
+\def\Hyper{\mathbb{H}}
+\def\Integer{\mathbb{Z}}
+\def\Natural{\mathbb{N}}
+\def\Complex{\mathbb{C}}
+\def\Rational{\mathbb{Q}}
+
+\let\N\Natural
+\let\Q\Rational
+\let\R\Real
+\let\C\Complex
+\let\Z\Integer
+\def\Rd{\Real^d}
+\def\RP{\Real\Proj}
+\def\CP{\Complex\Proj}
+\def\Sphere{\mathcal{S}^}          % sphere
+
+\let\e\varepsilon               % a ``real'' epsilon
+\def\Tau{\mathcal{T}}
+\def\pourc{\%}
+
+% ---- OPERATORS (requires amsmath) ----
+\def\argmax{\operatornamewithlimits{arg\,max}}
+\def\argmin{\operatornamewithlimits{arg\,min}}
+\def\card{\operatorname{card}}      % cardinality, deprecated for \abs
+\def\id{\operatorname{id}}      % identity
+\def\Id{\operatorname{Id}}      % identity
+
+\def\sgn{\operatorname{sgn}}            % sign function
+
+\def\divg{\operatorname{div}}           % divergent
+\def\supp{\operatorname{supp}}      % support
+
+\newcommand{\limop}[2]{\lim_{#1\rightarrow #2}}
+%\def\mapop#1#2#3{{#1}:{#2} \rightarrow {#3}}
+\newcommand{\mapop}[3]{{#1}:{#2} \rightarrow {#3}}
+
+\newcommand{\intff}{\int^{\infty}_{0}}  % integral from 0 to infinity
+
+% Special functions
+\def\sinc{\operatorname{sinc}}  
+\def\Idx{\mathbbm{1}}                   % characteristic function
+%\def\indic#1{\mathbbm{1}_{\left[ {#1} \right] }}
+\def\indicR#1{\mathbbm{1}_{{[#1]}}}
+\def\indic#1{\mathbbm{1}_{{#1}}}
+%\def\indic#1{\big[#1\big]}     % indicator variable; Iverson notation
+                    % e.g., Kronecker delta = [x=0]
+
+% --- Cheap displaystyle operators ---
+\def\Frac#1#2{{\displaystyle\frac{#1}{#2}}}
+\def\Sum{\sum\limits}
+\def\Prod{\prod\limits}
+\def\Union{\bigcup\limits}
+\def\Inter{\bigcap\limits}
+\def\Lor{\bigvee\limits}
+\def\Land{\bigwedge\limits}
+\def\Lim{\lim\limits}
+\def\Max{\max\limits}
+\def\Min{\min\limits}
+
+% ---- RELATORS ----
+\def\deq{\stackrel{\scriptscriptstyle\triangle}{=}}
+\def\mapsfrom{\leftarrow\!\mapstochar\,}
+\let\into\hookrightarrow        % = one-to-one
+\let\onto\twoheadrightarrow
+\def\inonto{\DOTSB\lhook\joinrel\twoheadrightarrow}
+\let\from\leftarrow
+\let\tofrom\leftrightarrow
+
+% ---- DELIMITER PAIRS ----
+\def\floor#1{\lfloor #1 \rfloor}
+\def\ceil#1{\lceil #1 \rceil}
+\def\seq#1{\langle #1 \rangle}
+\def\set#1{\{ #1 \}}
+\def\abs#1{\mathopen| #1 \mathclose|}   % use instead of $|x|$ 
+\def\norm#1{\mathopen\| #1 \mathclose\|}% use instead of $\|x\|$ 
+\def\normz#1{{\mathopen\| #1 \mathclose\|}_0}% use instead of $\|x\|$ 
+\def\normo#1{{\mathopen\| #1 \mathclose\|}_1}% use instead of $\|x\|$ 
+\def\normt#1{{\mathopen\| #1 \mathclose\|}_2}% use instead of $\|x\|$ 
+\def\normi#1{{\mathopen\| #1 \mathclose\|}_\infty}% use instead of $\|x\|$ 
+
+% --- Self-scaling delmiter pairs ---
+\def\Floor#1{\left\lfloor #1 \right\rfloor}
+\def\Ceil#1{\left\lceil #1 \right\rceil}
+\def\Seq#1{\left\langle #1 \right\rangle}
+\def\Set#1{\left\{ #1 \right\}}
+\def\Abs#1{\left| #1 \right|}
+
+\def\Norm #1{\left\| #1 \right\|}
+\def\Normz #1{\left\| #1 \right\| _0}
+\def\Normo #1{\left\| #1 \right\| _1}
+\def\Normt #1{\left\| #1 \right\| _2}
+\def\Normi #1{\left\| #1 \right\| _\infty}
+
+\def\Paren#1{\left( #1 \right)}     % need better macro name!
+\def\Brack#1{\left[ #1 \right]}     % need better macro name!
+\def\Indic#1{\left[ #1 \right]}     % indicator variable; Iverson notation
+\def\Intval#1{\llbracket #1 \rrbracket}
+
+% ---- Notations ----
+\def\myubrace#1#2{\underbrace{#1}_{\text{#2}}}
+
+% ---- Computer science ----
+\def\Cplusplus{C\raisebox{0.5ex}{\tiny\bf++}}
+
+% ----------------------------------------------------------------------
+%  Integral transforms
+% ----------------------------------------------------------------------
+
+\def\Fourier{\mathcal{F}}
+\def\Abel{\mathcal{A}}
+\def\Radon{\mathcal{R}}
+\def\XRay{\mathcal{P}}
+\def\DBeam{\mathcal{D}}
+% ----------------------------------------------------------------------
+% Linear Algebra and Matrix
+% ----------------------------------------------------------------------
+
+\def\det{\operatorname{det}}            % determinate
+\def\rank{\operatorname{rank}}            % determinate
+
+\def\Span{\operatorname{Span}}          % Span of linear space
+\def\Spark{\operatorname{Spark}}
+
+\def\ker{\operatorname{ker}}        % kernel
+\def\dom{\operatorname{dom}}        % domain
+\def\Ker{\operatorname{Ker}}        % Kernel
+\def\Dom{\operatorname{Dom}}        % Domain
+
+\def\img{\operatorname{im}}     % Image
+\def\Img{\operatorname{Im}}     % Image
+
+% --- Matrix related ---
+\def\diag{\mbox{diag}}
+\newcommand{\inv}[1]{{#1}^{-1}}         % inverse
+\newcommand{\tinv}[1]{{#1}^{-\top}}     % inverse transpose
+\newcommand{\pinv}[1]{{#1}^{\dagger}}   % pseudo-inverse
+%\newcommand{\tr}[1]{{#1}^{\top}}        % transpose
+\newcommand{\T}[1]{{#1}^{\top}}        % transpose
+
+% ----------------------------------------------------------------------
+% Probability and statistic
+% ----------------------------------------------------------------------
+
+\newcommand{\Exp}[1]{\mathbb{E}(#1)}
+\def\Pr{\operatorname{\mathbb{P}}}
+\def\Proba{\operatorname{Pr}}
+
+\def\iid{\stackrel{\mathrm{iid}}{\sim}} % \sim iid
+
+\newcommand{\Gaussian}[2]{\mathcal{N}(#1, #2)}
+\newcommand{\cov}[1]{\mbox{cov}(#1)}
+
+% ----------------------------------------------------------------------
+%  Function spaces
+% ----------------------------------------------------------------------
+
+\newcommand{\LtR}[1]{L^2(\R^#1)}
+\newcommand{\LtRd}{{L^2(\R^d)}}
+\newcommand{\LoRd}{{L^1(\R^d)}}
+\newcommand{\CoRd}{{C^1(\R^d)}}
+
+\newcommand{\Besov}[4]{B_{#2}^{#1}(L^{#3}(#4))}
+\newcommand{\BesovRd}[3]{B_{#2}^{#1}(L^{#3}(\R^d))}
+\newcommand{\Besovsp}{B_{q}^\alpha(L^p(\R^d))}
+\newcommand{\Besovspa}{B_{p,q}^\alpha}
+
+\newcommand{\Sobolev}[2]{W^{#1}(#2)}
+\newcommand{\SobolevRd}[2]{W^{#1}(\R^{#2})}
+
+\def\Schwartz#1{\mathcal{S}(\R^{#1})}
+\def\Riesz#1{\mathcal{I}^{#1}}
+
+
+
+
+
+% *************** Other in .sty files ***************
+\urlstyle{same}
+
+\hyphenation{co-or-din-ate co-or-din-ates half-space stereo-iso-mers
+stereo-iso-mer Round-table}
+
+
+% *************** Enable index generation ***************
+%\makeindex
+
+% *************** Add reference to page number at which bibliography entry is cited ***************
+\renewcommand{\bibitempages}[1]{\newblock {\scriptsize [\mbox{cited at p.\ }#1]}}
+
+% *************** Some colour definitions ***************
+
+\definecolor{greenyellow}   {cmyk}{0.15, 0   , 0.69, 0   }
+\definecolor{yellow}        {cmyk}{0   , 0   , 1   , 0   }
+\definecolor{goldenrod}     {cmyk}{0   , 0.10, 0.84, 0   }
+\definecolor{dandelion}     {cmyk}{0   , 0.29, 0.84, 0   }
+\definecolor{apricot}       {cmyk}{0   , 0.32, 0.52, 0   }
+\definecolor{peach}         {cmyk}{0   , 0.50, 0.70, 0   }
+\definecolor{melon}         {cmyk}{0   , 0.46, 0.50, 0   }
+\definecolor{yelloworange}  {cmyk}{0   , 0.42, 1   , 0   }
+\definecolor{orange}        {cmyk}{0   , 0.61, 0.87, 0   }
+\definecolor{burntorange}   {cmyk}{0   , 0.51, 1   , 0   }
+\definecolor{bittersweet}   {cmyk}{0   , 0.75, 1   , 0.24}
+\definecolor{redorange}     {cmyk}{0   , 0.77, 0.87, 0   }
+\definecolor{mahogany}      {cmyk}{0   , 0.85, 0.87, 0.35}
+\definecolor{maroon}        {cmyk}{0   , 0.87, 0.68, 0.32}
+\definecolor{brickred}      {cmyk}{0   , 0.89, 0.94, 0.28}
+\definecolor{red}           {cmyk}{0   , 1   , 1   , 0   }
+\definecolor{orangered}     {cmyk}{0   , 1   , 0.50, 0   }
+\definecolor{rubinered}     {cmyk}{0   , 1   , 0.13, 0   }
+\definecolor{wildstrawberry}{cmyk}{0   , 0.96, 0.39, 0   }
+\definecolor{salmon}        {cmyk}{0   , 0.53, 0.38, 0   }
+\definecolor{carnationpink} {cmyk}{0   , 0.63, 0   , 0   }
+\definecolor{magenta}       {cmyk}{0   , 1   , 0   , 0   }
+\definecolor{violetred}     {cmyk}{0   , 0.81, 0   , 0   }
+\definecolor{rhodamine}     {cmyk}{0   , 0.82, 0   , 0   }
+\definecolor{mulberry}      {cmyk}{0.34, 0.90, 0   , 0.02}
+\definecolor{redviolet}     {cmyk}{0.07, 0.90, 0   , 0.34}
+\definecolor{fuchsia}       {cmyk}{0.47, 0.91, 0   , 0.08}
+\definecolor{lavender}      {cmyk}{0   , 0.48, 0   , 0   }
+\definecolor{thistle}       {cmyk}{0.12, 0.59, 0   , 0   }
+\definecolor{orchid}        {cmyk}{0.32, 0.64, 0   , 0   }
+\definecolor{darkorchid}    {cmyk}{0.40, 0.80, 0.20, 0   }
+\definecolor{purple}        {cmyk}{0.45, 0.86, 0   , 0   }
+\definecolor{plum}          {cmyk}{0.50, 1   , 0   , 0   }
+\definecolor{violet}        {cmyk}{0.79, 0.88, 0   , 0   }
+\definecolor{royalpurple}   {cmyk}{0.75, 0.90, 0   , 0   }
+\definecolor{blueviolet}    {cmyk}{0.86, 0.91, 0   , 0.04}
+\definecolor{periwinkle}    {cmyk}{0.57, 0.55, 0   , 0   }
+\definecolor{cadetblue}     {cmyk}{0.62, 0.57, 0.23, 0   }
+\definecolor{cornflowerblue}{cmyk}{0.65, 0.13, 0   , 0   }
+\definecolor{midnightblue}  {cmyk}{0.98, 0.13, 0   , 0.43}
+\definecolor{navyblue}      {cmyk}{0.94, 0.54, 0   , 0   }
+\definecolor{royalblue}     {cmyk}{1   , 0.50, 0   , 0   }
+\definecolor{blue}          {cmyk}{1   , 1   , 0   , 0   }
+\definecolor{cerulean}      {cmyk}{0.94, 0.11, 0   , 0   }
+\definecolor{cyan}          {cmyk}{1   , 0   , 0   , 0   }
+\definecolor{processblue}   {cmyk}{0.96, 0   , 0   , 0   }
+\definecolor{skyblue}       {cmyk}{0.62, 0   , 0.12, 0   }
+\definecolor{turquoise}     {cmyk}{0.85, 0   , 0.20, 0   }
+\definecolor{tealblue}      {cmyk}{0.86, 0   , 0.34, 0.02}
+\definecolor{aquamarine}    {cmyk}{0.82, 0   , 0.30, 0   }
+\definecolor{bluegreen}     {cmyk}{0.85, 0   , 0.33, 0   }
+\definecolor{emerald}       {cmyk}{1   , 0   , 0.50, 0   }
+\definecolor{junglegreen}   {cmyk}{0.99, 0   , 0.52, 0   }
+\definecolor{seagreen}      {cmyk}{0.69, 0   , 0.50, 0   }
+\definecolor{green}         {cmyk}{1   , 0   , 1   , 0   }
+\definecolor{forestgreen}   {cmyk}{0.91, 0   , 0.88, 0.12}
+\definecolor{pinegreen}     {cmyk}{0.92, 0   , 0.59, 0.25}
+\definecolor{limegreen}     {cmyk}{0.50, 0   , 1   , 0   }
+\definecolor{yellowgreen}   {cmyk}{0.44, 0   , 0.74, 0   }
+\definecolor{springgreen}   {cmyk}{0.26, 0   , 0.76, 0   }
+\definecolor{olivegreen}    {cmyk}{0.64, 0   , 0.95, 0.40}
+\definecolor{rawsienna}     {cmyk}{0   , 0.72, 1   , 0.45}
+\definecolor{sepia}         {cmyk}{0   , 0.83, 1   , 0.70}
+\definecolor{brown}         {cmyk}{0   , 0.81, 1   , 0.60}
+\definecolor{tan}           {cmyk}{0.14, 0.42, 0.56, 0   }
+\definecolor{gray}          {cmyk}{0   , 0   , 0   , 0.50}
+\definecolor{black}         {cmyk}{0   , 0   , 0   , 1   }
+\definecolor{white}         {cmyk}{0   , 0   , 0   , 0   } 
+
+\definecolor{halfgray}{gray}{0.55}
+
+% *************** Macro for local change of margin ***************
+\newenvironment{changemargin}[2]{\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{0pt}%
+\setlength{\rightmargin}{0pt}%
+%\setlength{\listparindent}{\parindent}%
+%\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{0pt plus 1pt}%
+\addtolength{\leftmargin}{#1}%
+\addtolength{\rightmargin}{#2}%
+}\item }{\end{list}}
+
+%Example :
+%\begin{changemargin}{2cm}{-1cm}
+% This allows to augment the left margin by 2cm and diminuish the right one by 1cm.
+%\end{changemargin}
+
+
+% \ifpdf
+%     \pdfcompresslevel=9
+%         \usepackage[plainpages=false,pdfpagelabels,bookmarksnumbered,%
+%         colorlinks=true,%
+%         linkcolor=sepia,%
+%         citecolor=sepia,%
+%         filecolor=maroon,%
+%         %pagecolor=red,%
+%         urlcolor=sepia,%
+%         pdftex,%
+%         unicode]{hyperref} 
+%     \input{supp-mis.tex}
+%     \input{supp-pdf.tex}
+%     \pdfimageresolution=600
+%     \usepackage{thumbpdf} 
+% \else
+%     \usepackage{hyperref}
+% \fi
+
+
+
+% *************** Page layout ***************
+\setlrmarginsandblock{*}{.5in}{1.5}
+\setulmarginsandblock{1in}{*}{1}
+
+
+\setheadfoot{\onelineskip}{2\onelineskip}
+\setheaderspaces{*}{2\onelineskip}{*}
+
+\def\baselinestretch{1.1}
+
+
+\newfont{\myfonta}{eurb10 scaled 7000}
+
+
+\checkandfixthelayout
+
+% *************** Chapter and section style ***************
+\makeatletter
+\makechapterstyle{mychapterstyle}{%
+    \renewcommand{\chapnamefont}{\Huge\sffamily\bfseries\flushright}%
+    \renewcommand{\chapnumfont}{\myfonta}%    
+    \renewcommand{\chaptitlefont}{\Huge\sffamily\bfseries\flushleft}%
+    
+    \renewcommand{\printchaptername}{\chapnamefont{\color{olivegreen}{\MakeUppercase{\@chapapp}}}}        
+    \renewcommand{\printchapternum}{\chapnumfont{\color{olivegreen}{\thechapter}}\vspace{1cm} }%
+  	
+    \renewcommand{\printchaptertitle}[1]{%     		
+        \chaptitlefont\hrule height 0.5pt \vspace{1em}%
+        {##1}\vspace{1em}\hrule height 0.5pt%
+        }%
+    
+}
+\makeatother
+
+\newcommand{\chapsubhead}[1]{%
+  \\{\normalsize #1}%
+}
+
+\chapterstyle{mychapterstyle}
+
+
+
+\setsecheadstyle{\Large\sffamily\bfseries}
+\setsubsecheadstyle{\large\sffamily\bfseries}
+\setsubsubsecheadstyle{\normalfont\sffamily\bfseries}
+
+\setparaheadstyle{\normalfont\sffamily}
+\makeevenhead{headings}{\thepage}{}{\footnotesize\slshape\leftmark}
+\makeoddhead{headings}{\footnotesize\slshape\rightmark}{}{\thepage}
+\makeheadrule{headings}{\textwidth}{0.5pt}
+
+
+
+
+
+
+
+
+% *************** Table of contents style ***************
+\settocdepth{subsection}
+
+\setsecnumdepth{subsection}
+\maxsecnumdepth{subsection}
+\settocdepth{subsection}
+\maxtocdepth{subsection}
+
+% ********** Commands for epigraphs **********
+\setlength{\epigraphwidth}{0.57\textwidth}
+\setlength{\epigraphrule}{0pt}
+\setlength{\beforeepigraphskip}{1\baselineskip}
+\setlength{\afterepigraphskip}{2\baselineskip}
+
+\newcommand{\epitext}{\sffamily\itshape}
+\newcommand{\epiauthor}{\sffamily\scshape ---~}
+\newcommand{\epititle}{\sffamily\itshape}
+\newcommand{\epidate}{\sffamily\scshape}
+\newcommand{\episkip}{\medskip}
+
+\newcommand{\myepigraph}[4]{%
+	\epigraph{\epitext #1\episkip}{\epiauthor #2\\\epititle #3 \epidate(#4)}\noindent}
+
+% *************** Other ***************
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+% *************** End of document style definition ***************

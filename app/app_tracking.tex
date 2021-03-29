@@ -1,0 +1,150 @@
+\chapter{Kalman Filters}
+\section{Kalman Filter}
+\label{sec:KalmanFilter} The KF is a recursive method that uses a
+stream of noisy observations to produce an optimal estimator of
+the underlying system state \cite{kalman}. Consider the following
+time-discrete dynamical system ($t\geq 1$):
+\begin{align}
+  \label{eq:Dynamic_system}
+  X_t &= F_tX_{t-1}+W_t , \\ %\label{eqn:Kalman_eq_sys}
+  Y_t &= H_tX_t+V_t .%\label{eqn:Kalman_eq_obs}
+\end{align}
+where
+\begin{itemize}
+\item $X_t$ is the vector of \emph{system state}; \item $Y_t$ is
+the vector of \emph{observation}; \item $F_t$ is the state
+transition matrix which is applied to the previous state
+  $X_{t-1}$;
+\item $H_t$ is the observation matrix which yields the (noise
+free) observation from
+  a system state $X_t$;
+\item $W_t\sim\normallaw{Q_t}$ is the process noise and
+$V_t\sim\normallaw{R_t}$ is
+  the observation noise, with respectively $Q_t$ and $R_t$ the covariance
+  matrix. These two noises are independent between them. Further, we assume that, for $t\neq \tau$, $W_t$ and $W_\tau$ are also independent
+  (the same holds for $V_t$ and $V_\tau$).
+\end{itemize}
+Suppose that $X_0$ is Gaussian. Then it follows that the process
+$(X_t,Y_t)_{t\geq 0}$ is Gaussian.  The objective is to estimate
+the system state $X_t$ from the accumulated observations
+$\Yt:=[Y_1\ldots Y_t]$.
+
+
+The optimal estimator (in the least-squares sense) of the system
+state $X_t$ given the observations $\Yt$ is the conditional
+expectation
+\begin{align}
+  \label{eq:conditional_estimator}
+  \xtt = \EE[{X_t|\Yt}].
+\end{align}
+Since the joint vector $(X_t,\Yt)$ is Gaussian, the conditional
+expectation $\xtt$ is a linear combination of $\Yt$, which can be
+written in terms of $\hat{x}_{t-1|t-1}$ and $Y_t$ only. The
+purpose of the KF is to calculate $\xtt$ from $\hat{x}_{t-1|t-1}$
+and $Y_t$.
+
+%We denote by $\hat x_t$ an estimation of $X_t$. An optimal
+%estimation would minimize the quadratic loss function: $\EE
+%[{|{X_t-\hat x_t}|^2}]$. Using the fact that $\EE[{|{X_t-\hat
+%x_t}|^2}] = {\EE[{|{X_t-\hat x_t}|^2 | \Yt}]}$, we easily see that
+%the minimizer is attained at
+%\begin{align}
+%  \label{eq:conditional_exp_min}
+%  \xtt = {\rm{argmin}}_{\hat x_t} \EE[{|{X_t-\hat x_t}|^2 | \Yt}]\;.
+%\end{align}
+%By taking the derivative in (\ref{eq:conditional_exp_min}) with
+%respect to $\hat x_t$, it follows that the optimal estimator of
+%the system state $X_t$ is given by
+%\begin{align}
+%  \label{eq:conditional_estimator}
+%  \xtt = \EE[{X_t|\Yt}]\;.
+%\end{align}
+%The conditional distribution $X_t|\Yt$ being still Gaussian,
+% the optimal estimator is also given by
+%\begin{align}
+%  \label{eq:MAP_estimator}
+%  \xtt = {\rm{argmax}}_{\hat x_t} P(X_t=\hat x_t|\Yt)\;.
+%\end{align}
+%The KF calculates recursively $\xtt = \EE[{X_t|\Yt}]$. It turns
+%out that $\xtt$ is unbiased, and linear on $\Yt$. It is optimal in
+%the sense of \eqref{eq:conditional_exp_min} or
+%\eqref{eq:MAP_estimator}.
+
+
+
+
+We summarize the algorithm in the following.
+
+\textbf{Initialization:}
+\begin{align}
+  \label{eq:Kalman_init}
+  \hat x_{0|0} = \EE[{X_0}], \ P_{0|0} = \cov{X_0}.
+\end{align}
+
+\textbf{Prediction:}
+\begin{align}
+  \label{eq:Kalman_prediction}
+  \xtn &= F_t \xnn ,\\
+  \Ye_t &= Y_t - H_t \xtn ,\\
+  P_{t|t-1} &= F_t P_{t-1|t-1} F_t^T + Q_t .
+\end{align}
+
+\textbf{Update:}
+\begin{align}
+  \label{eq:Kalman_update}
+  S_t &= H_t P_{t|t-1} H_t^T + R_t ,\\
+  K_t &= P_{t|t-1}H_t^T S_t^{-1} ,\\
+  \xtt &= \xtn + K_t \Ye_t , \\
+  P_{t|t} &= (I - K_tH_t) P_{t-1|t-1} .
+\end{align}
+To apply the KF algorithm the covariance matrices $Q_t, R_t$ must
+be known.
+
+\section{Extended Kalman Filter}
+\label{sec:extend-kalm-filt}
+
+Consider now a nonlinear dynamical system:
+\begin{align}
+  X_{t} &= f_t(X_{t-1},W_t) ,\\ %\label{eqn:nlsys_etat}
+  Y_{t} &= h_t(X_t,V_t) ,\label{eqn:nlsys_obs}
+\end{align}
+where $X_t, Y_t, W_t, V_t$ are the same as in the KF, while the
+functions $f_t, h_t$ are nonlinear and differentiable. Nothing can
+be said in general on the conditional distribution $X_t|\Yt$ due
+to the nonlinearity. The EKF calculates an approximation of the
+conditional expectation \eqref{eq:conditional_estimator} by an
+appropriate linearization of the state transition and observation
+models, which makes the general scheme of KF still applicable
+\cite{kalman2}. However, the resulting algorithm is no more
+optimal in the least-squares sense due to the approximation.
+
+Let $F_X=\partial_X f(\xnn, 0), F_W=\partial_W f(\xnn, 0)$, the
+partial derivatives of $f$ (with respect to the system state and
+the process noise) evaluated at $(\xnn, 0)$, and let
+$H_X=\partial_X h(\xtn, 0), H_V=\partial_V h(\xtn, 0)$ be the
+partial derivatives of $h$ (with respect to the system state and
+the observation noise) evaluated at $(\xtn, 0)$. The EKF algorithm
+is summarized below.
+
+\textbf{Initialization:}
+\begin{align}
+  \label{eq:EKF_init}
+  \hat x_{0|0} = \EE[{X_0}], \ P_{0|0} = \cov{X_0}.
+\end{align}
+
+\textbf{Prediction:}
+\begin{align}
+  \label{eq:EKF_prediction}
+  \xtn &= f(\xnn,0) , \\
+  \Ye_t &= Y_t - h(\xtn, 0) ,\\
+  P_{t|t-1} &= F_X P_{t-1|t-1} F_X^T + F_WQ_tF_W^T .
+\end{align}
+
+\textbf{Update:}
+\begin{align}
+  \label{eq:EKF_update}
+  S_t &= H_X P_{t|t-1} H_X^T + H_VR_tH_V^T , \\
+  K_t &= P_{t|t-1}H_X^T S_t^{-1} ,\\
+  \xtt &= \xtn + K_t \Ye_t , \\
+  P_{t|t} &= (I - K_tH_X) P_{t-1|t-1} .
+\end{align}

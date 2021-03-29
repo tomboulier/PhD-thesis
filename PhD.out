@@ -1,0 +1,97 @@
+\BOOKMARK [0][-]{section*.1}{Contents}{}% 1
+\BOOKMARK [0][-]{chapter.1}{Introduction and overview}{}% 2
+\BOOKMARK [1][-]{section.1.1}{State of the Art}{chapter.1}% 3
+\BOOKMARK [2][-]{subsection.1.1.1}{Discovery of the Electric Sense: a Brief History}{section.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.1.2}{Weakly Electric Fish}{section.1.1}% 5
+\BOOKMARK [2][-]{subsection.1.1.3}{Electrolocation}{section.1.1}% 6
+\BOOKMARK [1][-]{section.1.2}{Overview of the Thesis}{chapter.1}% 7
+\BOOKMARK [2][-]{subsection.1.2.1}{Interests and Potential Applications}{section.1.2}% 8
+\BOOKMARK [2][-]{subsection.1.2.2}{Organization of the Thesis}{section.1.2}% 9
+\BOOKMARK [0][-]{chapter.2}{Mathematical Model}{}% 10
+\BOOKMARK [1][-]{section.2.1}{Introduction}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.2}{Physical modeling}{chapter.2}% 12
+\BOOKMARK [2][-]{subsection.2.2.1}{Electromagnetic formulation}{section.2.2}% 13
+\BOOKMARK [2][-]{subsection.2.2.2}{Non-dimensionalization}{section.2.2}% 14
+\BOOKMARK [2][-]{subsection.2.2.3}{Problem setup}{section.2.2}% 15
+\BOOKMARK [2][-]{subsection.2.2.4}{Existence, uniqueness, and representation of the electric potential}{section.2.2}% 16
+\BOOKMARK [1][-]{section.2.3}{Thin resistive skin and highly conductive body asymptotic}{chapter.2}% 17
+\BOOKMARK [2][-]{subsection.2.3.1}{Asymptotic expansions of the operators}{section.2.3}% 18
+\BOOKMARK [2][-]{subsection.2.3.2}{Asymptotic expansions on the layers}{section.2.3}% 19
+\BOOKMARK [2][-]{subsection.2.3.3}{Proof of Theorem 2.3.2}{section.2.3}% 20
+\BOOKMARK [2][-]{subsection.2.3.4}{Final formulation and notation}{section.2.3}% 21
+\BOOKMARK [2][-]{subsection.2.3.5}{The case of non-neutral charges in the body}{section.2.3}% 22
+\BOOKMARK [2][-]{subsection.2.3.6}{Multi-frequency measurements}{section.2.3}% 23
+\BOOKMARK [1][-]{section.2.4}{Perturbation Induced by the Presence of a Target}{chapter.2}% 24
+\BOOKMARK [2][-]{subsection.2.4.1}{A Dipolar Expansion in the Presence of a Target}{section.2.4}% 25
+\BOOKMARK [2][-]{subsection.2.4.2}{Post-processing}{section.2.4}% 26
+\BOOKMARK [1][-]{section.2.5}{Numerical simulations}{chapter.2}% 27
+\BOOKMARK [2][-]{subsection.2.5.1}{Direct Solver}{section.2.5}% 28
+\BOOKMARK [2][-]{subsection.2.5.2}{Results}{section.2.5}% 29
+\BOOKMARK [1][-]{section.2.6}{Conclusion}{chapter.2}% 30
+\BOOKMARK [0][-]{chapter.3}{A Space-Frequency Localization Algorithm}{}% 31
+\BOOKMARK [1][-]{section.3.1}{Introduction}{chapter.3}% 32
+\BOOKMARK [1][-]{section.3.2}{Detection algorithm for multi-frequency measurements}{chapter.3}% 33
+\BOOKMARK [2][-]{subsection.3.2.1}{Response matrix}{section.3.2}% 34
+\BOOKMARK [2][-]{subsection.3.2.2}{A location search algorithm}{section.3.2}% 35
+\BOOKMARK [1][-]{section.3.3}{Numerical simulations}{chapter.3}% 36
+\BOOKMARK [2][-]{subsection.3.3.1}{Target location}{section.3.3}% 37
+\BOOKMARK [2][-]{subsection.3.3.2}{Target characterization}{section.3.3}% 38
+\BOOKMARK [1][-]{section.3.4}{Concluding remarks}{chapter.3}% 39
+\BOOKMARK [0][-]{chapter.4}{Extraction of Generalized Polarization Tensors}{}% 40
+\BOOKMARK [1][-]{section.4.1}{Introduction}{chapter.4}% 41
+\BOOKMARK [1][-]{section.4.2}{Structure of the Multistatic Response Matrix}{chapter.4}% 42
+\BOOKMARK [2][-]{subsection.4.2.1}{The asymptotic expansion of the perturbed potential field}{section.4.2}% 43
+\BOOKMARK [2][-]{subsection.4.2.2}{Expansion for MSR using contracted GPT}{section.4.2}% 44
+\BOOKMARK [1][-]{section.4.3}{Reconstruction of CGPTs and Stability Analysis}{chapter.4}% 45
+\BOOKMARK [2][-]{subsection.4.3.1}{Analytical formula in the concentric setting}{section.4.3}% 46
+\BOOKMARK [2][-]{subsection.4.3.2}{Measurement noise and stability analysis}{section.4.3}% 47
+\BOOKMARK [2][-]{subsection.4.3.3}{CGPT reconstruction in the limited-view setting}{section.4.3}% 48
+\BOOKMARK [1][-]{section.4.4}{Numerical Results}{chapter.4}% 49
+\BOOKMARK [2][-]{subsection.4.4.1}{Reconstruction of CGPTs}{section.4.4}% 50
+\BOOKMARK [2][-]{subsection.4.4.2}{Partial View Setting}{section.4.4}% 51
+\BOOKMARK [1][-]{section.4.5}{Conclusion}{chapter.4}% 52
+\BOOKMARK [0][-]{chapter.5}{Dictionary Matching}{}% 53
+\BOOKMARK [1][-]{section.5.1}{Introduction}{chapter.5}% 54
+\BOOKMARK [1][-]{section.5.2}{Complex CGPTs under Rigid Motions and Scaling}{chapter.5}% 55
+\BOOKMARK [2][-]{subsection.5.2.1}{Some properties of complex CGPTs}{section.5.2}% 56
+\BOOKMARK [1][-]{section.5.3}{Shape Identification by the CGPTs}{chapter.5}% 57
+\BOOKMARK [2][-]{subsection.5.3.1}{CGPTs matching}{section.5.3}% 58
+\BOOKMARK [2][-]{subsection.5.3.2}{Transform invariant shape descriptors}{section.5.3}% 59
+\BOOKMARK [1][-]{section.5.4}{Numerical Experiments}{chapter.5}% 60
+\BOOKMARK [2][-]{subsection.5.4.1}{Matching on a dictionary of flowers}{section.5.4}% 61
+\BOOKMARK [2][-]{subsection.5.4.2}{Dictionary of letters}{section.5.4}% 62
+\BOOKMARK [1][-]{section.5.5}{Conclusion}{chapter.5}% 63
+\BOOKMARK [0][-]{chapter.6}{Tracking of a Mobile Target}{}% 64
+\BOOKMARK [1][-]{section.6.1}{Introduction}{chapter.6}% 65
+\BOOKMARK [1][-]{section.6.2}{Tracking of a mobile target}{chapter.6}% 66
+\BOOKMARK [2][-]{subsection.6.2.1}{Time dependent data acquisition}{section.6.2}% 67
+\BOOKMARK [2][-]{subsection.6.2.2}{Time relationship between CGPTs}{section.6.2}% 68
+\BOOKMARK [2][-]{subsection.6.2.3}{Tracking by the Extended Kalman Filter}{section.6.2}% 69
+\BOOKMARK [1][-]{section.6.3}{Numerical results}{chapter.6}% 70
+\BOOKMARK [2][-]{subsection.6.3.1}{Numerical experiments of tracking in the full-view setting}{section.6.3}% 71
+\BOOKMARK [2][-]{subsection.6.3.2}{Tracking in the limited-view setting}{section.6.3}% 72
+\BOOKMARK [1][-]{section.6.4}{Conclusion}{chapter.6}% 73
+\BOOKMARK [0][-]{chapter.7}{Shape Recognition and Classification in Electro-Sensing}{}% 74
+\BOOKMARK [1][-]{section.7.1}{Introduction}{chapter.7}% 75
+\BOOKMARK [1][-]{section.7.2}{Feature extraction from induced current measurements}{chapter.7}% 76
+\BOOKMARK [2][-]{subsection.7.2.1}{Electro-sensing model}{section.7.2}% 77
+\BOOKMARK [2][-]{subsection.7.2.2}{Asymptotic formalism}{section.7.2}% 78
+\BOOKMARK [2][-]{subsection.7.2.3}{Data acquisition and reduction}{section.7.2}% 79
+\BOOKMARK [1][-]{section.7.3}{Recognition and classification}{chapter.7}% 80
+\BOOKMARK [2][-]{subsection.7.3.1}{Fixed frequency setting: shape descriptor based classification}{section.7.3}% 81
+\BOOKMARK [2][-]{subsection.7.3.2}{Multifrequency setting: Spectral induced polarization based classification}{section.7.3}% 82
+\BOOKMARK [2][-]{subsection.7.3.3}{Background field elimination}{section.7.3}% 83
+\BOOKMARK [1][-]{section.7.4}{Numerical illustrations}{chapter.7}% 84
+\BOOKMARK [2][-]{subsection.7.4.1}{Setup and methods}{section.7.4}% 85
+\BOOKMARK [2][-]{subsection.7.4.2}{Results and discussion}{section.7.4}% 86
+\BOOKMARK [1][-]{section.7.5}{Figures}{chapter.7}% 87
+\BOOKMARK [1][-]{section.7.6}{Concluding remarks}{chapter.7}% 88
+\BOOKMARK [0][-]{chapter.8}{Conclusion and Perspectives}{}% 89
+\BOOKMARK [0][-]{section*.7}{Appendices}{}% 90
+\BOOKMARK [0][-]{appendix.A}{Several Technical Estimates}{}% 91
+\BOOKMARK [1][-]{section.A.1}{The truncation error in the MSR expansion}{appendix.A}% 92
+\BOOKMARK [1][-]{section.A.2}{Proof of formula \(4.18\)}{appendix.A}% 93
+\BOOKMARK [1][-]{section.A.3}{Proof of formula \(4.25\)}{appendix.A}% 94
+\BOOKMARK [0][-]{appendix.B}{Kalman Filters}{}% 95
+\BOOKMARK [1][-]{section.B.1}{Kalman Filter}{appendix.B}% 96
+\BOOKMARK [1][-]{section.B.2}{Extended Kalman Filter}{appendix.B}% 97

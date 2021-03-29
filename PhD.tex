@@ -1,0 +1,38 @@
+\documentclass[11pt, a4paper, oldfontcommands]{memoir}
+\input{style.tex}
+
+\begin{document}
+% *************** Front matter ***************
+\frontmatter
+\input{front.tex}
+
+% *************** Main matter ***************
+\mainmatter
+\input{ack/ack.tex}
+\input{abst/resume.tex}
+\input{abst/abst.tex}
+\input{intro/intro.tex}
+\input{model/math_model.tex}
+\input{model/localization.tex}
+\input{dico/GPTextraction.tex}
+\input{dico/dictionary_matching.tex}
+\input{tracking/tracking.tex}
+\input{pnas/pnas.tex}
+\input{ccl/conclusion.tex}
+
+% *************** Appendixes ***************
+\appendix
+\appendixpage
+% \input{app/app_model.tex}
+\input{app/app_dico.tex}
+\input{app/app_tracking.tex}
+
+% *************** Bibliography ***************
+\bibliographystyle{plain}
+\bibliography{PhD.bib}
+
+% *************** Back matter ***************
+\backmatter
+\input{back.tex}
+
+\end{document}

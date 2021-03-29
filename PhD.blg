@@ -1,0 +1,54 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: PhD.aux
+Case mismatch error between cite keys Taylor1 and taylor1
+---line 1245 of file PhD.aux
+ : \citation{Taylor1
+ :                  }
+I'm skipping whatever remains of this command
+The style file: plain.bst
+Database file #1: PhD.bib.bib
+Warning--there's a number but no series in ammari2004reconstruction
+Warning--empty journal in rouviere2002
+You've used 119 entries,
+            2118 wiz_defined-function locations,
+            1167 strings with 23225 characters,
+and the built_in function-call counts, 38535 in all, are:
+= -- 3795
+> -- 1783
+< -- 22
++ -- 732
+- -- 586
+* -- 2745
+:= -- 6504
+add.period$ -- 366
+call.type$ -- 119
+change.case$ -- 628
+chr.to.int$ -- 0
+cite$ -- 121
+duplicate$ -- 1444
+empty$ -- 3009
+format.name$ -- 586
+if$ -- 7939
+int.to.chr$ -- 0
+int.to.str$ -- 119
+missing$ -- 133
+newline$ -- 600
+num.names$ -- 239
+pop$ -- 603
+preamble$ -- 1
+purify$ -- 531
+quote$ -- 0
+skip$ -- 982
+stack$ -- 0
+substring$ -- 2435
+swap$ -- 245
+text.length$ -- 22
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 436
+warning$ -- 2
+while$ -- 384
+width$ -- 122
+write$ -- 1302
+(There was 1 error message)

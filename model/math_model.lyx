@@ -1,0 +1,5310 @@
+#LyX file created by tex2lyx 2.0.1
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref 0
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+
+\begin_inset FormulaMacro
+\def\chapname {Mathematical Model}
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+chapter[
+\backslash
+chapname]{
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+chapname 
+\backslash
+chapsubhead{Results published in 
+\backslash
+cite{ABG2012modeling}}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+
+In this paper, we provide a mathematical model for the electrolocation in weakly electric fishes. We first investigate the forward complex conductivity problem and derive the approximate boundary conditions on the skin of the fish. Then we provide a dipole approximation for small targets away from the fish. Based on this approximation, we obtain a non-iterative location search algorithm using multi-frequency measurements. We present numerical experiments to illustrate the performance and the stability of the proposed multi-frequency location search algorithm. Finally, in the case of disk- and ellipse-shaped targets, we provide a method to reconstruct separately the conductivity, the permittivity, and the size of the targets from multi-frequency measurements. 
+\end_layout
+
+\begin_layout Section
+
+Introduction
+\end_layout
+
+\begin_layout Standard
+
+In the turbid rivers of Africa and South America, some species of fish generate an electric current which is not enough for defense purposes. In 1958, Lissmann and Machin discovered that this electric current is in fact used for spatial visualization 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "lissmann1958mechanism"
+
+\end_inset
+
+. Indeed an object in the vicinity of the fish will be detected by measurement of the electric field's distortion on the skin. Behavioral experiments have shown that the weakly electric fish is able to extract useful information about targets, such as the location 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "von1993electric"
+
+\end_inset
+
+, the shape 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "von2007distance"
+
+\end_inset
+
+, and the electric parameters (capacitance and conductivity) 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "von1999active"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+Mathematically speaking, this is an inverse problem for the electric field created by the fish. Indeed, given the current distribution over the skin, the problem is to recover the conductivity distribution in the surrounding space. Due to the ill-posedness character of this type of problems, it is intriguing to see how much information is the fish able to recover. Thus, modelling this "electric sense
+\begin_inset Quotes erd
+\end_inset
+
+ (called active electrolocation) is likely to give us insights in this regard.
+\end_layout
+
+\begin_layout Standard
+
+Electrolocation has been quantitatively investigated since Lissmann and Machin, who tried an analytical approach. More precisely, they computed the distortion created by a cylinder placed in the electric field of a dipole 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "lissmann1958mechanism"
+
+\end_inset
+
+, and noticed that it is equivalent to the field created by a dipole located inside the cylinder. In 1983, Bacher remarked that this formula cannot explain the phase difference observed when the electric permittivity of the target does not equal the permittivity of the water 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "bacher1983new"
+
+\end_inset
+
+. This phase shift seems to be an important input for the fish since it is measured by receptors (called Rapid Timing units 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "moller1995electric"
+
+\end_inset
+
+), and thus will be the central point in this paper. Rasnow in 1996 gathered these two previous results by considering a time-harmonic and spatially uniform background electric field. In the presence of a sphere with center at 
+\begin_inset Formula $0$
+\end_inset
+
+ and radius 
+\begin_inset Formula $a$
+\end_inset
+
+, conductivity 
+\begin_inset Formula $\sigma_{1}$
+\end_inset
+
+, and permittivity 
+\begin_inset Formula $\varepsilon_{1}$
+\end_inset
+
+, the uniform background electric field 
+\begin_inset Formula ${E}_{0}$
+\end_inset
+
+ with frequency 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is modified by adding the following field: 
+\begin_inset Formula \begin{equation} \label{formemp}
+{E}_{0}\cdot {x} = \left(\frac{a}{|{
+x}|}\right)^{3}\frac{(\sigma_{1}+i\omega\varepsilon_{1})-(\sigma_{0}
++i\omega\varepsilon_{0})}{2(\sigma_{1}+i\omega\varepsilon_{1})+(\sigma_{0}+i\omega\varepsilon_{0})},
+\end{equation}
+\end_inset
+
+ where the subscript 
+\begin_inset Formula $0$
+\end_inset
+
+ refers to the ambient medium.
+\end_layout
+
+\begin_layout Standard
+
+Numerical approaches have also been driven since the 70's: in 1975, Heiligenberg proposed a finite differences scheme to calculate the field created by the fish 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "heiligenberg1975theoretical"
+
+\end_inset
+
+. In 1980, Hoshimiya 
+\emph on
+et al.
+\emph default
+ used finite elements to solve this problem 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "hoshimiya1980theapteronotus"
+
+\end_inset
+
+. The geometry of the fish is simplified by an ellipse and is divided into two areas: the thin skin with low conductivity and the interior of the body. Their aim is to optimize conductivity values to approximate as better as possible the experimentally measured field. The result is that the optimal conductivity is non-uniform, being higher in the tail region. Improvements of these models since then can be found in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "babineau2006modeling,maciver2001computational,migliaro2005theoretical,rasnow1989simulation"
+
+\end_inset
+
+ and references therein. However, the most promising technique is the use of the boundary element method performed by Assad in the 90's in his PhD thesis 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "assad1997phd"
+
+\end_inset
+
+. Indeed, the important feature is the electric potential on the skin (because it is the input for the fish), so a boundary element method (BEM) approach allows us to concentrate the equations on the skin. Moreover, the computation speed is enhanced because the number of nodes is dramatically reduced. Let us mention that there are other kinds of simulations, based on a more empirical approach, determining an equivalent electric circuit 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "budelli2000electric,caputi1998electric"
+
+\end_inset
+
+ or an equivalent multipole 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "chen2005modeling"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+The aim of this paper is to derive a rigorous model for the electrolocation of an object around the fish. Let 
+\begin_inset Formula $u$
+\end_inset
+
+ denote the scalar potential field. We consider the equation 
+\begin_inset Formula $\Delta u=0$
+\end_inset
+
+ on the exterior of the body with Robin boundary conditions on the skin 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "assad1990hypercube"
+
+\end_inset
+
+: 
+\begin_inset Formula \begin{equation}
+u-\xi\frac{\partial u}{\partial\nu}=\psi,\label{eq:assad_BC}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $\psi$
+\end_inset
+
+ is the potential inside the body and 
+\begin_inset Formula $\xi=h(\sigma_{0}/\sigma_{s})$
+\end_inset
+
+ (
+\begin_inset Formula $h$
+\end_inset
+
+ being the skin thickness and 
+\begin_inset Formula $\sigma_{s}$
+\end_inset
+
+ (resp. 
+\begin_inset Formula $\sigma_{0}$
+\end_inset
+
+) the skin (resp. water) conductivity) is the 
+\emph on
+effective skin thickness
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+
+Two problems arise: the direct problem, 
+\emph on
+i.e.
+\emph default
+, the equations involved and their boundary conditions, and the reconstruction itself. For the direct complex conductivity problem, we show using layer potential techniques the validity of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:assad_BC"
+
+\end_inset
+
+). We also generalize formula (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "formemp"
+
+\end_inset
+
+) to the case of a non-uniform background electric field, taking into account the distortion induced by the body of the fish, and with any shape of the target. For the inverse problem, little is known in the complex conductivity case 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "berettafrancini2011stability"
+
+\end_inset
+
+. Here, we take advantage of the smallness of the targets to use the framework of small volume asymptotic expansions for target location and characterization 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "ammari2004reconstruction, ammari2007polarization"
+
+\end_inset
+
+. However, since the electric current is generated by only one emitter at the tail of the fish (the electric organ) and measured by many receptors on the skin, standard non-iterative algorithms such as MUSIC (standing for MUltiple Signal Classification) cannot be applied for location search. In standard MUSIC, the data (called multistatic response matrix) form a matrix and its singular value decomposition leads to an efficient imaging function by projecting the Green function of the medium onto the significant image space 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "AGKPS2011cracks,AIL2005music,AKKLV2008music, bruhl2003direct, chambersberryman2006target, cheney2001linearsampling, kirsch1999characterization"
+
+\end_inset
+
+. Here, roughly speaking, one has only a column of the response matrix. However, using the fact that the electric current produced by the electric organ is time-harmonic with a known fundamental frequency, we extend MUSIC approach to multi-frequency measurements by constructing an efficient and robust multi-frequency MUSIC imaging function. We perform numerical simulations in order to validate both the direct model and the multi-frequency MUSIC algorithm. We also illustrate the robustness with respect to measurement noise and the sensitivity with respect to the number of frequencies, the number of sensors, and the distance to the target of the location search algorithm. Finally, in the case of disk- and ellipse-shaped targets, we provide a method to reconstruct separately the conductivity, the permittivity, and the size of the targets from multi-frequency measurements. We mention that this is possible only because of multi-frequency measurements which yield polarization tensors with complex conductivities. It is well-known that polarization tensors for real conductivities cannot separate the size from material properties of the target 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "ammari2007polarization"
+
+\end_inset
+
+. We also mention that the use of different values for the frequencies is more crucial for the material and size reconstruction procedure than for the location step. In fact, in the presence of measurement noise, location with 
+\begin_inset Formula $N$
+\end_inset
+
+ realizations with one frequency is comparable to the one with 
+\begin_inset Formula $N$
+\end_inset
+
+ different frequency values.
+\end_layout
+
+\begin_layout Standard
+
+The paper is organized as follows. In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:forward_problem"
+
+\end_inset
+
+, the physical model is set up and the equations governing the electric field are introduced and their basic properties analyzed. Using layer potential techniques, the boundary condition (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:assad_BC"
+
+\end_inset
+
+) is rigorously recovered in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:BC-derivation"
+
+\end_inset
+
+. In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:detection_algo"
+
+\end_inset
+
+, a small target is located using multi-frequency measurements. For this purpose, a dipolar approximation is derived before the analysis of the response matrix. Finally, numerical simulations are performed in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:numeric"
+
+\end_inset
+
+ and semi-analytical methods are proposed for the recovery of some geometrical information on the target as well as its electrical parameters. Due to the presence of a hyper-singular operator, a particular attention is paid to the numerical scheme for solving the direct problem, as shown in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:direct-problem-numeric"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Reconstructions of the electromagnetic parameters and the size of
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%disk- and ellipse-shaped targets are also provided.
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+Physical modeling
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:forward_problem"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+The aim of this section is to formulate the 
+\emph on
+forward problem
+\emph default
+. The electromagnetic formulation is introduced in subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:setup"
+
+\end_inset
+
+. The model equations are non-dimensionalized in subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "nondimension"
+
+\end_inset
+
+ and the different scales identified. Subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "problemsetup"
+
+\end_inset
+
+ is devoted to the problem setup. Existence, uniqueness and a useful representation formula for the solution of the model equations are proved in subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:existence-uniqueness"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+
+Electromagnetic formulation
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:setup"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+In this subsection, we derive the equations governing the electric field. A formal explanation of the electroquasistatic (or EQS) formulation is given.
+\end_layout
+
+\begin_layout Standard
+
+The electroquasistatic (or EQS) formulation is a low-frequency limit for the Maxwell system in three dimensions. In the frequency domain, the latter is given by 
+\begin_inset Formula \begin{equation}
+\left\{ \begin{alignedat}{1}\nabla\cdot\varepsilon {E} & =\rho,\\
+\nabla\cdot {B} & =0,\\
+\nabla\times {E} & =-i\omega {B},\\
+\nabla\times\frac{ {B}}{\mu} & = {j}+i\omega\varepsilon {E},
+\end{alignedat}
+\right.\label{eq:maxwell}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $E$
+\end_inset
+
+ is the electric field, 
+\begin_inset Formula $B$
+\end_inset
+
+ is the magnetic induction field, 
+\begin_inset Formula $\rho$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ are the free charges and currents, 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is the frequency, 
+\begin_inset Formula $\mu$
+\end_inset
+
+ is the magnetic permeability, and 
+\begin_inset Formula $\varepsilon$
+\end_inset
+
+ is the electric permittivity. Moreover, in a medium of conductivity 
+\begin_inset Formula $\sigma$
+\end_inset
+
+, Ohm's law connects the electric field to the induced current density (
+\begin_inset Formula ${j_{i}}=\sigma {E}$
+\end_inset
+
+) so the total current density can be decomposed as: 
+\begin_inset Formula \[
+{j}=\sigma {E}+ {j_{s}},
+\]
+\end_inset
+
+ where 
+\begin_inset Formula ${j_{s}}$
+\end_inset
+
+ is a source of current (in our model, it comes from the electric organ). Then, taking the divergence of the last line in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:maxwell"
+
+\end_inset
+
+), we have: 
+\begin_inset Formula \begin{equation}
+\nabla\cdot(\sigma+i\varepsilon\omega) {E}=-\nabla\cdot
+{j_{s}}.\label{eq:div-maxwell4}
+\end{equation}
+\end_inset
+
+ The EQS approximation consists of considering the electric field as irrotational because the magnetic field variation is negligible. A sufficient condition for that is given by 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "vanRienen2001"
+
+\end_inset
+
+: 
+\begin_inset Formula \begin{equation}
+\frac{L_{\textrm{max}}}{\lambda_{\textrm{min}}}\ll1,\label{eq:eqs_condition}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $L_{\textrm{max}}$
+\end_inset
+
+ is the maximal length of the problem and 
+\begin_inset Formula $\lambda_{\textrm{min}}$
+\end_inset
+
+ the minimal wavelength. Here, we can take 
+\begin_inset Formula $L_{\textrm{max}}=1$
+\end_inset
+
+m because the range of electrolocation does not exceed two body lengths 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "moller1995electric"
+
+\end_inset
+
+. In the water, the minimal wavelength is given by 
+\begin_inset Formula \[
+\lambda_{\textrm{min}}=\frac{1}{\omega_{\textrm{max}}\sqrt{\mu\varepsilon}},
+\]
+\end_inset
+
+ where 
+\begin_inset Formula $\mu\approx\mu_{0}$
+\end_inset
+
+, 
+\begin_inset Formula $\varepsilon\approx80\varepsilon_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $\omega_{\textrm{max}}$
+\end_inset
+
+ is the maximal frequency emitted by the fish, which is of the order of 
+\begin_inset Formula $10$
+\end_inset
+
+kHz. Thus, the fraction in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eqs_condition"
+
+\end_inset
+
+) is of order 
+\begin_inset Formula $10^{-4}$
+\end_inset
+
+, so the EQS approximation is very well suited for our situation.
+\end_layout
+
+\begin_layout Standard
+
+Going back to the equation of the electric field (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:div-maxwell4"
+
+\end_inset
+
+), we can now use the fact that 
+\begin_inset Formula ${E}$
+\end_inset
+
+ is irrotational to state that it is derived from a scalar potential field 
+\begin_inset Formula $u$
+\end_inset
+
+. This finally leads us to the following equation: 
+\begin_inset Formula \begin{equation}
+\nabla\cdot(\sigma+i\varepsilon\omega)\nabla u=-\nabla\cdot
+{j_{s}}.\label{eq:EQS-PDE}
+\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+To conclude, taking into account the slow variation of the electric field leads us to consider a complex conductivity instead of a real valued one. However, for the rest of this section, the imaginary part of this conductivity will be neglected; indeed measurements on a 
+\emph on
+Gnathonemus petersii
+\emph default
+ showed that the permittivity of the skin, the body, and the water are very small compared to their respective conductivity
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "caputi1998electric,scheich1973coding"
+
+\end_inset
+
+. Thus, this EQS approximation will be used only in the presence of a target: it will be detected by the phase shift induced by its complex conductivity.
+\end_layout
+
+\begin_layout Subsection
+
+Non-dimensionalization
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "nondimension"
+
+\end_inset
+
+ In this subsection, the setup of the problem is non-dimensionalized. The first step consists in identifying the different scales of the model problem. The electric potential 
+\begin_inset Formula $u$
+\end_inset
+
+, the variables 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $\omega$
+\end_inset
+
+, and the parameters 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ and 
+\begin_inset Formula ${j_{s}}$
+\end_inset
+
+ can be written as follows: 
+\begin_inset Formula \[
+u=V_{0}u',\;
+x=Lx',\;\omega=\omega_{0}\omega',\;\sigma=\sigma_{0}k,\;
+{j_{s}}=\frac{I_{0}}{L^{2}} {j_{s}'},
+\]
+\end_inset
+
+ where 
+\begin_inset Formula $V_{0}$
+\end_inset
+
+ is the voltage produced by an 
+\emph on
+electric organ discharge
+\emph default
+ (EOD), 
+\begin_inset Formula $L$
+\end_inset
+
+ is the length of the fish, 
+\begin_inset Formula $\omega_{0}$
+\end_inset
+
+ is the fundamental frequency of the EOD, 
+\begin_inset Formula $\sigma_{0}$
+\end_inset
+
+ is the conductivity of the surrounding water and 
+\begin_inset Formula $I_{0}$
+\end_inset
+
+ is the current intensity inside the electric organ. Moreover, anticipating the next subsection, the conductivity of the body and the skin play an important role in the shape of the electric field. Thus, in the list of parameters we add the conductivity of the body 
+\begin_inset Formula $\sigma_{b}$
+\end_inset
+
+, the thickness of the skin 
+\begin_inset Formula $h$
+\end_inset
+
+ and its surface conductivity 
+\begin_inset Formula $\Sigma$
+\end_inset
+
+. The orders of magnitude of these parameters are found in Table
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Orders-of-magnitude"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Float table
+placement !h
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Tabular 
+<lyxtabular version="3" rows="9" columns="3">
+<features>
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+Quantity 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+Order of magnitude 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+Reference
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $V_{0}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $10$
+\end_inset
+
+ mV 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "assad1998electric,stoddard1999electric"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $L$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $10$
+\end_inset
+
+ cm 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "moller1995electric"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $\omega_{0}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $1$
+\end_inset
+
+ kHz 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "moller1995electric"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $\sigma_{0}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $100$
+\end_inset
+
+ 
+\begin_inset Formula $\mu$
+\end_inset
+
+S
+\begin_inset Formula $\cdot$
+\end_inset
+
+cm
+\begin_inset Formula $^{-1}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "maciver2001prey"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $I_{0}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $1$
+\end_inset
+
+ mA 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "bell1976electric"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $\sigma_{b}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $1$
+\end_inset
+
+ S
+\begin_inset Formula $\cdot$
+\end_inset
+
+m
+\begin_inset Formula $^{-1}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "scheich1973coding"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $\Sigma$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $100$
+\end_inset
+
+ 
+\begin_inset Formula $\mu$
+\end_inset
+
+S
+\begin_inset Formula $\cdot$
+\end_inset
+
+cm
+\begin_inset Formula $^{-2}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "caputi1998electric"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $h$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset Formula $100$
+\end_inset
+
+ 
+\begin_inset Formula $\mu$
+\end_inset
+
+m 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "zakon1986electroreceptive"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Caption
+
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Orders-of-magnitude"
+
+\end_inset
+
+Orders of magnitude of the physical quantities involved. These are only scales and not the exact values measured in the cited references. Here 
+\begin_inset Formula $S$
+\end_inset
+
+ is Siemens (
+\begin_inset Formula $1S =1A/1V$
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+These 
+\begin_inset Formula $n=8$
+\end_inset
+
+ quantities involve 
+\begin_inset Formula $r=4$
+\end_inset
+
+ fundamental units of the SI system, so according to the Buckingham-Pi theorem, we need 
+\begin_inset Formula $n-r=4$
+\end_inset
+
+ nondimensional quantities to describe the model problem. The first one can be found by rewriting the equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:EQS-PDE"
+
+\end_inset
+
+) in terms of the nondimensional quantities (
+\begin_inset Formula $x^\prime, k, u',
+j_{s}^\prime$
+\end_inset
+
+): 
+\begin_inset Formula \begin{equation}
+\nabla_{x'}\cdot
+k\nabla_{x'}u'=-\frac{I_{0}}{\sigma_{0}V_{0}L}\nabla\cdot
+{j_{s}'}.\label{eq:nondimensionalized-EQS}
+\end{equation}
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Note that the order of magnitude for the conductivity used here is
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%$
+\backslash
+sigma_{b}$ because the electric organ is located inside the body
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%(in most species, it is found in the tail~
+\backslash
+cite{moller1995electric}).
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+The multiplicative term in the right-hand side of the previous equation is not important as the equation is linear. The three other nondimensional quantities come from the parameters of the skin and the body of the fish: 
+\begin_inset Formula \[
+k_{b}:=\frac{\sigma_{b}}{\sigma_{0}}\sim10^{2},\; k_{s}:=\frac{h\Sigma}{\sigma_{0}}\sim10^{-2},\;\delta:=\frac{h}{L}\sim10^{-3}.
+\]
+\end_inset
+
+ In other words, in nondimensional units, 
+\begin_inset Formula $k_{b}$
+\end_inset
+
+ (resp. 
+\begin_inset Formula $k_{s}$
+\end_inset
+
+) is the body (resp. skin) conductivity and 
+\begin_inset Formula $\delta$
+\end_inset
+
+ is the skin thickness.
+\end_layout
+
+\begin_layout Standard
+
+To conclude, omitting the prime symbol for the sake of clarity and denoting by 
+\begin_inset Formula $k_b f$
+\end_inset
+
+ the source term in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:nondimensionalized-EQS"
+
+\end_inset
+
+), the governing PDE is the following 
+\begin_inset Formula \begin{equation}
+\nabla\cdot k\nabla u= k_b f,\label{eq:EQS-final}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $k$
+\end_inset
+
+ is piecewise constant, being equal to 
+\begin_inset Formula $1$
+\end_inset
+
+ in the water, 
+\begin_inset Formula $k_{b}$
+\end_inset
+
+ inside the body of the fish and 
+\begin_inset Formula $k_{s}$
+\end_inset
+
+ in the skin. These domains will be specified in the next subsection.
+\end_layout
+
+\begin_layout Standard
+
+For the sake of simplicity, from now on, we only consider the model equations in two dimensions.
+\end_layout
+
+\begin_layout Subsection
+
+Problem setup
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "problemsetup"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+The setup is as follows: the body occupies a fixed smooth open set 
+\begin_inset Formula $\Omega_{b}$
+\end_inset
+
+ and the skin with constant thickness is denoted by 
+\begin_inset Formula $\Omega_{s}$
+\end_inset
+
+. The source of the electric field is a sum of Dirac functions: 
+\begin_inset Formula \begin{equation} \label{sumdirac}
+f= \sum_{j=1}^{m}\alpha_{j}\delta_{z_{j}},
+\end{equation}
+\end_inset
+
+ where, for 
+\begin_inset Formula $1\leq j\leq m$
+\end_inset
+
+, 
+\begin_inset Formula $z_{j}\in\Omega_{b}$
+\end_inset
+
+ and 
+\begin_inset Formula $f$
+\end_inset
+
+ satisfies the charge neutrality condition 
+\begin_inset Formula \begin{equation} \label{neutre}
+\ds \sum_{j=1}^m \alpha_{j}=0.
+\end{equation}
+\end_inset
+
+ Although condition (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "neutre"
+
+\end_inset
+
+) is the physical condition in our model, we will show how to modify the derivations and the results of the paper in the general case. An illustration is given in Figure
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Setup"
+
+\end_inset
+
+. 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics 
+	filename model/fish_model.eps
+	width 10cm
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+
+\begin_layout Standard
+
+Setup of the problem. The conductivities are non-dimensionalized so that 
+\begin_inset Formula $\sigma_{0}=1$
+\end_inset
+
+. The body 
+\begin_inset Formula $\Omega_{b}$
+\end_inset
+
+, with boundary 
+\begin_inset Formula $\Gamma_b$
+\end_inset
+
+ and conductivity 
+\begin_inset Formula $k_b$
+\end_inset
+
+, is the interior of the ellipse. The skin 
+\begin_inset Formula $\Omega_{s}$
+\end_inset
+
+, with exterior boundary 
+\begin_inset Formula $\Gamma_s$
+\end_inset
+
+ and conductivity 
+\begin_inset Formula $k_s$
+\end_inset
+
+, is represented in blue. The sources 
+\begin_inset Formula $f$
+\end_inset
+
+ are given by the two dots. 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Setup"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+Our main purpose is to investigate the behavior of the solution of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:EQS-final"
+
+\end_inset
+
+) with 
+\begin_inset Formula \begin{equation} \label{defk}
+k(x)=\left\{\begin{array}{l} k_s \quad \mbox{if } x \in \Omega_s,\\
+\nm k_b \quad \mbox{if } x \in \Omega_b,\\
+\nm 1 \quad \mbox{otherwise},
+\end{array}
+\right.
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $k_s \neq 1$
+\end_inset
+
+ and 
+\begin_inset Formula $k_b \neq k_s$
+\end_inset
+
+. Let 
+\begin_inset Formula $\xi$
+\end_inset
+
+ be the effective thickness given by 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "assad1990hypercube"
+
+\end_inset
+
+: 
+\begin_inset Formula \begin{equation} \label{defxi}
+\xi:=\frac{\delta}{k_{s}}.
+\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+In order to make the dependence of the solution on 
+\begin_inset Formula $\delta$
+\end_inset
+
+ and 
+\begin_inset Formula $k_b$
+\end_inset
+
+ clear (
+\begin_inset Formula $\xi$
+\end_inset
+
+ being fixed), let us denote such a solution by 
+\begin_inset Formula $u_{\delta,k_{b}}$
+\end_inset
+
+. Adding a far field condition (essential for uniqueness, see subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:existence-uniqueness"
+
+\end_inset
+
+), it is the solution of 
+\begin_inset Formula \begin{equation}
+\left\{ \begin{alignedat}{2}\nabla\cdot k\nabla u_{\delta,k_{b}} & = k_b f, & \,\, x\in\mathbb{R}^{2},\\
+\left|u_{\delta,k_{b}} \right| & = {O}(\left|x\right|^{-1}), &
+\,\,\left|x\right|\rightarrow\infty \text{ uniformly in }\hat{x},
+\end{alignedat}
+\right.\label{eq:governing_equation}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $\hat{x}:=x/\left|x\right|$
+\end_inset
+
+ and 
+\begin_inset Formula $k(x)$
+\end_inset
+
+ is given by (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "defk"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+
+In the next subsection, we analyze equation
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+) and show that there exists a unique solution that can be represented as the sum of a harmonic function and two single-layer potentials.
+\end_layout
+
+\begin_layout Subsection
+
+Existence, uniqueness, and representation of the electric potential
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:existence-uniqueness"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+We first prove the uniqueness of the solutions of
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+) and then we derive a representation formula, which will give us the existence of the solution. For the moment, 
+\begin_inset Formula $\delta$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{b}$
+\end_inset
+
+ are fixed, but we suppose that: 
+\begin_inset Formula \begin{equation}
+k_{s} < 1 < k_{b}.\label{eq:ordering_conductivities}
+\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+
+Uniqueness
+\end_layout
+
+\begin_layout Standard
+
+The uniqueness comes from the second line of
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+) 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "ammari2007polarization"
+
+\end_inset
+
+. Indeed, let 
+\begin_inset Formula $v=u_1-u_2$
+\end_inset
+
+, where 
+\begin_inset Formula $u_1$
+\end_inset
+
+ and 
+\begin_inset Formula $u_2$
+\end_inset
+
+ are two solutions of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+) and let us show that 
+\begin_inset Formula $v=0$
+\end_inset
+
+. From
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:ordering_conductivities"
+
+\end_inset
+
+) we get, for 
+\begin_inset Formula $R$
+\end_inset
+
+ sufficiently large (so that the ball with center 
+\begin_inset Formula $0$
+\end_inset
+
+ and radius 
+\begin_inset Formula $R$
+\end_inset
+
+ encompasses 
+\begin_inset Formula $\Omega_s$
+\end_inset
+
+): 
+\begin_inset Formula \begin{align*}
+\int_{\left|x\right|<R}\left|\nabla v\right|^{2}
+\leq\frac{1}{k_{s}} \int_{\left|x\right|<R} k(x) \left|\nabla
+v\right|^{2} =
+ \frac{1}{k_{s}}\int_{\left|x\right|=R}v\frac{\partial v}{\partial\nu}=
+ -\frac{1}{k_{s}}\int_{\left|x\right|>R}\left|\nabla
+v\right|^{2}\leq0.
+\end{align*}
+\end_inset
+
+ Here we have used the fact that 
+\begin_inset Formula $\nabla v \in
+L^2(\mathbb{R}^{2}\setminus \overline{\Omega}_s)$
+\end_inset
+
+, which holds as a consequence of the far field condition. A unique continuation argument shows that 
+\begin_inset Formula $\left|\nabla v\right|^{2}=0$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbb{R}^{2}$
+\end_inset
+
+ and thus 
+\begin_inset Formula $v$
+\end_inset
+
+ is constant. Then, using the fact that 
+\begin_inset Formula $v\rightarrow0$
+\end_inset
+
+ as 
+\begin_inset Formula $|x|\rightarrow \infty$
+\end_inset
+
+, we have 
+\begin_inset Formula $v=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+
+Existence and representation
+\end_layout
+
+\begin_layout Standard
+
+The existence is given by a representation formula decomposing the solution into a source part and a refraction part. This refraction part implies layer potentials on the boundaries of the body and the skin. Let us define them explicitly and give some well-known results. First, let us introduce the following boundaries: 
+\begin_inset Formula \[
+\Gamma_{b}:=\partial\Omega_{b}\mbox{ and
+}\Gamma_{s}:=\partial\Omega_{s}\setminus\Gamma_{b},
+\]
+\end_inset
+
+ and assume that they are of class 
+\begin_inset Formula $\mathcal{C}^{1,\eta}$
+\end_inset
+
+ for some 
+\begin_inset Formula $\eta >0$
+\end_inset
+
+. In the following, the index 
+\begin_inset Formula $\beta$
+\end_inset
+
+ stands for the subscript 
+\begin_inset Formula $b$
+\end_inset
+
+ or 
+\begin_inset Formula $s$
+\end_inset
+
+. The single- and double-layer potentials on 
+\begin_inset Formula $\Gamma_{\beta}$
+\end_inset
+
+ are operators that map any 
+\begin_inset Formula $\varphi\in
+L^{2}(\Gamma_{\beta})$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathcal{S}_{\beta} \varphi$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathcal{D}_{\beta} \varphi$
+\end_inset
+
+, respectively, where 
+\begin_inset Formula \[
+\begin{aligned}\begin{aligned}\mathcal{S}_{\beta} := \mathcal{S}_{\Gamma_\beta} \mbox{ with } &
+ (\mathcal{S}_\Gamma \varphi)(x):=\int_{\Gamma}G(x-s)\varphi(s)ds,\\
+\mathcal{D}_{\beta} := \mathcal{D}_{\Gamma_\beta} \mbox{ with }  &
+(\mathcal{D}_{\Gamma}\varphi)(x)
+ :=\int_{\Gamma}\frac{\partial
+G}{\partial\nu_{s}}(x-s)\varphi(s)ds,
+\end{aligned}
+\end{aligned}
+\]
+\end_inset
+
+ where 
+\begin_inset Formula $G$
+\end_inset
+
+ is the fundamental solution of the Laplacian in 
+\begin_inset Formula $\mathbb{R}^{2}$
+\end_inset
+
+: 
+\begin_inset Formula \begin{equation} \label{defG}
+ G(x) := \frac{1}{2\pi} \log |x|, \quad x \neq 0.
+ \end{equation}
+\end_inset
+
+ For 
+\begin_inset Formula $\varphi\in L^{2}(\Gamma_{\beta})$
+\end_inset
+
+, the functions 
+\begin_inset Formula $\mathcal{S}_{\beta}\varphi$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathcal{D}_{\beta}\varphi$
+\end_inset
+
+ are harmonic functions in 
+\begin_inset Formula $\mathbb{R}^{2}\setminus\Gamma_{\beta}$
+\end_inset
+
+; their singularities hold on 
+\begin_inset Formula $\Gamma_{\beta}$
+\end_inset
+
+. To describe these singularities, we define, for a function 
+\begin_inset Formula $w$
+\end_inset
+
+ defined in 
+\begin_inset Formula $\mathbb{R}^{2}\setminus\Gamma_{\beta}$
+\end_inset
+
+ and 
+\begin_inset Formula $x\in\Gamma_{\beta}$
+\end_inset
+
+: 
+\begin_inset Formula \[
+\begin{aligned}\left.w(x)\right|_{\pm} & :=\lim_{t\rightarrow0}w(x\pm t\nu(x)),\\
+\left.\frac{\partial w}{\partial\nu}(x)\right|_{\pm} & :=\lim_{t\rightarrow0}
+ \nabla w(x\pm t\nu(x)) \cdot \nu(x) .
+\end{aligned}
+\]
+\end_inset
+
+ Across the boundary
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset Formula $\Gamma_{\beta}$
+\end_inset
+
+, the following trace relations hold
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "ammari2007polarization"
+
+\end_inset
+
+: 
+\begin_inset Formula \begin{equation}
+\begin{aligned}\left.\mathcal{S}_{\beta}\varphi\right|_{+} & =\left.\mathcal{S}_{\beta}\varphi\right|_{-},\\
+\left.\frac{\partial\mathcal{S}_{\beta}\varphi}{\partial\nu}\right|_{\pm} & =\left(\pm\frac{1}{2}I+\mathcal{K}_{\beta}^{*}\right)\varphi,\\
+\left.\mathcal{D}_{\beta}\varphi\right|_{\pm} & =\left(\mp\frac{1}{2}I+\mathcal{K}_{\beta}\right)\varphi,\\
+\left.\frac{\partial\mathcal{D}_{\beta}\varphi}{\partial\nu}\right|_{+} & =\left.\frac{\partial\mathcal{D}_{\beta}\varphi}{\partial\nu}\right|_{-}.
+\end{aligned}
+\label{eq:jump_formulas}
+\end{equation}
+\end_inset
+
+ Here, for a 
+\begin_inset Formula $\mathcal{C}^{1,\eta}$
+\end_inset
+
+-boundary 
+\begin_inset Formula $\Gamma_{\beta}$
+\end_inset
+
+, the operator 
+\begin_inset Formula $\mathcal{K}_{\beta}$
+\end_inset
+
+ and its 
+\begin_inset Formula $L^{2}$
+\end_inset
+
+-adjoint 
+\begin_inset Formula $\mathcal{K}_{\beta}^{*}$
+\end_inset
+
+ are given by 
+\begin_inset Formula \[
+\begin{aligned}(\mathcal{K}_{\beta}\varphi)(x) & :=\frac{1}{2\pi}\int_{\Gamma_{\beta}}\frac{
+(s-x)\cdot \nu(s)}{\left|x-s\right|^{2}}\varphi(s)ds & ,\,\, x\in\Gamma_{\beta},\\
+(\mathcal{K}_{\beta}^{*}\varphi)(x) & :=\frac{1}{2\pi }
+\int_{\Gamma_{\beta}}\frac{ (x-s)\cdot \nu(x)
+}{\left|x-s\right|^{2}}\varphi(s)ds & ,\,\, x\in\Gamma_{\beta}.
+\end{aligned}
+\]
+\end_inset
+
+ From (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:jump_formulas"
+
+\end_inset
+
+) it follows that the following jump formulas hold: 
+\begin_inset Formula \[
+\left.\frac{\partial\mathcal{S}_{\beta}\varphi}{\partial\nu}\right|_{+}
+-
+\left.\frac{\partial\mathcal{S}_{\beta}\varphi}{\partial\nu}\right|_{-}
+= \varphi \quad \mbox{and} \quad
+\left.\mathcal{D}_{\beta}\varphi\right|_{+} -
+\left.\mathcal{D}_{\beta}\varphi\right|_{-} = - \varphi.
+\]
+\end_inset
+
+ The following invertibility result is useful 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "escauriaza1992,kellogg2010foundations,verchota1984"
+
+\end_inset
+
+. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{thm}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:invertibility_lambda_K"
+
+\end_inset
+
+Suppose that 
+\begin_inset Formula $\Gamma_{\beta}$
+\end_inset
+
+ is 
+\begin_inset Formula $\mathcal{C}^{1,\eta}$
+\end_inset
+
+ for some 
+\begin_inset Formula $\eta >0$
+\end_inset
+
+. Then the operator 
+\begin_inset Formula $\lambda I-\mathcal{K}_{\beta}^{*}$
+\end_inset
+
+ is invertible on 
+\begin_inset Formula $L_{0}^{2}(\Gamma_{\beta}):=\{ \varphi \in
+L^2(\Gamma_{\beta}) : \int_{\Gamma_\beta} \varphi =0\}$
+\end_inset
+
+ if 
+\begin_inset Formula $\left|\lambda\right|\geq1/2$
+\end_inset
+
+, and for 
+\begin_inset Formula $\lambda\in ( -\infty, -
+1/2]\cup (1/2,+\infty)$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda I-\mathcal{K}_{\beta}^{*}$
+\end_inset
+
+ is invertible on 
+\begin_inset Formula $L^{2}(\Gamma_{\beta})$
+\end_inset
+
+. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{thm}
+\end_layout
+
+\end_inset
+
+ With these essentials tools, we can now prove the following decomposition formula in the same spirit as in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "kang1996"
+
+\end_inset
+
+: 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{lem}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "lemlatter"
+
+\end_inset
+
+ The solution of problem
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+), with 
+\begin_inset Formula $f$
+\end_inset
+
+ given by (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sumdirac"
+
+\end_inset
+
+), can be written as 
+\begin_inset Formula \begin{equation}
+u(x)=H(x)+(\mathcal{S}_{s}\tilde{\varphi_{s}})(x)+(\mathcal{S}_{b}\varphi_{b})(x),\label{eq:decomposition_formula}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula \begin{equation}
+H(x)=\sum_{j=1}^{m}\alpha_{j}G(x-z_{j}),\label{eq:definition_H}
+\end{equation}
+\end_inset
+
+ and the pair 
+\begin_inset Formula $(\tilde{\varphi_{s}},\varphi_{b})\in L^{2}(\Gamma_{s})\times L^{2}(\Gamma_{b})$
+\end_inset
+
+ is uniquely determined by the system 
+\begin_inset Formula \begin{equation}
+\left\{ \begin{alignedat}{2}(\lambda_{s}I-\mathcal{K}_{s}^{*})\tilde{\varphi_{s}}-\frac{\partial\mathcal{S}_{b}\varphi_{b}}{\partial\nu} & =\frac{\partial H}{\partial\nu}, & \,\, x\in\Gamma_{s},\\
+(\lambda_{b}I - \mathcal{K}_{b}^{*})\varphi_{b} -
+\frac{\partial\mathcal{S}_{s}\tilde{\varphi_{s}}}{\partial\nu} & =
+\frac{\partial H}{\partial\nu}, & \,\, x\in\Gamma_{b}.
+\end{alignedat}
+\right.\label{eq:definition_phis_phib}
+\end{equation}
+\end_inset
+
+ Here, 
+\begin_inset Formula $\lambda_b$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda_s$
+\end_inset
+
+ are given by 
+\begin_inset Formula \begin{equation} \label{deflambdas}
+\lambda_{s}:=\frac{k_{s}+1}{2(k_{s}-1)}\mbox{ and
+}\lambda_{b}:=\frac{k_{s}+k_{b}}{2(k_{s}-k_{b})}.
+\end{equation}
+\end_inset
+
+ Moreover, the decomposition (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decomposition_formula"
+
+\end_inset
+
+) of 
+\begin_inset Formula $u$
+\end_inset
+
+ into a source part 
+\begin_inset Formula $H$
+\end_inset
+
+ and a refraction part 
+\begin_inset Formula $\mathcal{S}_{s}\tilde{\varphi_{s}}+\mathcal{S}_{b}\varphi_{b}$
+\end_inset
+
+ is unique.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{lem}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+proof
+\end_layout
+
+\end_inset
+
+ The system
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+) is equivalent to the following transmission problem
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "allaire2007numerical"
+
+\end_inset
+
+: 
+\begin_inset Formula \begin{equation} \label{eqs210}
+\left\{ \begin{alignedat}{2}\Delta u & ={f}, & \,\, x\in\mathbb{R}^{2}\setminus(\Gamma_{b}\cup\Gamma_{s}),\\
+\left.u\right|_{+}-\left.u\right|_{-} & =0, & \,\, x\in\Gamma_{b}\cup\Gamma_{s},\\
+k_{s}\left.\frac{\partial u}{\partial\nu}\right|_{+}-k_{b}\left.\frac{\partial u}{\partial\nu}\right|_{-} & =0,
+& \,\, x\in\Gamma_{b},\\
+\left.\frac{\partial u}{\partial\nu}\right|_{+}-k_{s}\left.\frac{\partial u}{\partial\nu}\right|_{-} & =0, &
+\,\, x\in\Gamma_{s},\\
+\left|u\right| & = {O}(\left|x\right|^{-1}), &
+\,\,\left|x\right|\rightarrow\infty,\text{ uniformly in }\hat{x}.
+\end{alignedat}
+\right.
+\end{equation}
+\end_inset
+
+ The existence of a solution 
+\begin_inset Formula $(\tilde{\varphi}_s, \varphi_b)$
+\end_inset
+
+ to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_phis_phib"
+
+\end_inset
+
+) comes from the fact that 
+\begin_inset Formula $|\lambda_s|, |\lambda_b|  \in (1/2, + \infty)$
+\end_inset
+
+ and Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:invertibility_lambda_K"
+
+\end_inset
+
+. On the other hand, the functions 
+\begin_inset Formula $\mathcal{S}_{s}\tilde{\varphi_{s}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathcal{S}_{b}\varphi_{b}$
+\end_inset
+
+ are harmonic in 
+\begin_inset Formula $\Omega_{b}$
+\end_inset
+
+, and according to the definition of 
+\begin_inset Formula $H$
+\end_inset
+
+, we have 
+\begin_inset Formula $\Delta u= {f}$
+\end_inset
+
+ in 
+\begin_inset Formula $\Omega_{b}$
+\end_inset
+
+. In 
+\begin_inset Formula $\Omega_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbb{R}^{2}\setminus\overline{\Omega}_{s}\cup
+\overline{\Omega}_{b}$
+\end_inset
+
+, all these functions are harmonic so we have 
+\begin_inset Formula $\Delta u=0$
+\end_inset
+
+. The trace relations on 
+\begin_inset Formula $\Gamma_b$
+\end_inset
+
+ and 
+\begin_inset Formula $\Gamma_s$
+\end_inset
+
+ are then given by the singularities (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:jump_formulas"
+
+\end_inset
+
+) of 
+\begin_inset Formula $\mathcal{S}_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathcal{S}_{b}$
+\end_inset
+
+ (see
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "ammari2007polarization"
+
+\end_inset
+
+) since 
+\begin_inset Formula $H$
+\end_inset
+
+ is smooth away from the points
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset Formula $z_{j}$
+\end_inset
+
+. Finally, all these functions are controlled by
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset Formula $\left|x\right|^{-1}$
+\end_inset
+
+ when
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset Formula $\left|x\right|\rightarrow\infty$
+\end_inset
+
+. In this way, the existence of a solution to
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+) is proved.
+\end_layout
+
+\begin_layout Standard
+
+To prove the uniqueness of the decomposition, let us take 
+\begin_inset Formula $\tilde{\varphi_{s}}'$
+\end_inset
+
+ and 
+\begin_inset Formula $\varphi_{b}'$
+\end_inset
+
+ such that 
+\begin_inset Formula \[
+H+\mathcal{S}_{s}\tilde{\varphi_{s}}+\mathcal{S}_{b}\varphi_{b}=H+\mathcal{S}_{s}\tilde{\varphi_{s}}'+\mathcal{S}_{b}\varphi_{b}'.
+\]
+\end_inset
+
+ Because of the location of the singularities, the function 
+\begin_inset Formula $\mathcal{S}_{s}(\tilde{\varphi_{s}}-\tilde{\varphi_{s}}')
+ =\mathcal{S}_{b}(\varphi_{b}'-\varphi_{b})$
+\end_inset
+
+ is harmonic in 
+\begin_inset Formula $\Omega_{s}\cup\overline{\Omega}_{b}$
+\end_inset
+
+, which gives by the jump formula for the normal derivative of 
+\begin_inset Formula $\mathcal{S}_{b}$
+\end_inset
+
+ on 
+\begin_inset Formula $\Gamma_b$
+\end_inset
+
+ that 
+\begin_inset Formula $\varphi_{b}=\varphi_{b}'$
+\end_inset
+
+. Finally, applying the jump formula for the normal derivative of 
+\begin_inset Formula $\mathcal{S}_{s}$
+\end_inset
+
+ on 
+\begin_inset Formula $\Gamma_s$
+\end_inset
+
+, we have 
+\begin_inset Formula $\tilde{\varphi_{s}}=\tilde{\varphi_{s}}'$
+\end_inset
+
+. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+cqfd
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+Thin resistive skin and highly conductive body asymptotic
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:BC-derivation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+In this section, we derive the appropriate boundary conditions associated with the presence of a very thin and very resistive skin. Robin boundary conditions will be found after an asymptotic analysis of the layer potentials involved.
+\end_layout
+
+\begin_layout Standard
+
+We assume that 
+\begin_inset Formula $\Omega_{s}$
+\end_inset
+
+ is described as: 
+\begin_inset Formula \[
+\Omega_{s}:=\big\{ x +t\nu(x),\,
+x\in\partial\Omega_{b},\,0<t<\delta\big\},
+\]
+\end_inset
+
+ where 
+\begin_inset Formula $\nu$
+\end_inset
+
+ is the outward normal unit vector and consider the following asymptotic regime: 
+\begin_inset Formula \begin{equation} \label{assumpk}
+k_s = \frac{\delta}{\xi}, \quad \xi \mbox{ is fixed}, \quad
+\delta\rightarrow0, \mbox{ and }k_{b}\rightarrow\infty \quad
+(\mbox{so } k_s \rightarrow 0),
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the effective thickness. We compute the first-order asymptotic 
+\begin_inset Formula $u_{0,\infty}$
+\end_inset
+
+ of 
+\begin_inset Formula $u_{\delta,k_b}$
+\end_inset
+
+ as 
+\begin_inset Formula $\delta
+\rightarrow 0$
+\end_inset
+
+ and 
+\begin_inset Formula $k_b\rightarrow +\infty$
+\end_inset
+
+ and see that it is the solution of the following system: 
+\begin_inset Formula \begin{equation}
+\left\{ \begin{alignedat}{2}\Delta u_{0,\infty} & ={f}, & \,\, x\in\Omega_{b},\\
+\Delta u_{0,\infty} & =0, & \,\, x\in\mathbb{R}^{2}\setminus\overline{\Omega}_{b},\\
+\left.u_{0,\infty}\right|_{+}-\left.u_{0,\infty}\right|_{-} & =\xi\left.\frac{\partial u_{0,\infty}}{\partial\nu}\right|_{+}, & \,\, x\in\partial\Omega_{b},\\
+\left.\frac{\partial u_{0,\infty}}{\partial\nu}\right|_{-} & =0, & \,\, x\in \partial \Omega_{b},\\
+\left|u_{0,\infty}\right| & = {O}(\left|x\right|^{-1}), &
+\,\,\left|x\right|\rightarrow\infty,\text{ uniformly in }\hat{x}.
+\end{alignedat}
+\right.\label{eq:asymptotic_equation}
+\end{equation}
+\end_inset
+
+ Here, the subscripts 
+\begin_inset Formula $+$
+\end_inset
+
+ and 
+\begin_inset Formula $-$
+\end_inset
+
+ represent the limit from outside and inside 
+\begin_inset Formula $\Omega_b$
+\end_inset
+
+, respectively. Note that in the limiting model (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:asymptotic_equation"
+
+\end_inset
+
+), the role of 
+\begin_inset Formula $f$
+\end_inset
+
+ is to fix the potential 
+\begin_inset Formula $ u_{0,\infty} \big|_{-}$
+\end_inset
+
+ on 
+\begin_inset Formula $\partial \Omega_{b}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+For the system
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:asymptotic_equation"
+
+\end_inset
+
+), Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lemlatter"
+
+\end_inset
+
+ yields the following result. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{lem}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:decomposition_lemma_asymptotic"
+
+\end_inset
+
+ Assume that (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "neutre"
+
+\end_inset
+
+) holds. The solution of problem
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:asymptotic_equation"
+
+\end_inset
+
+) can be written as 
+\begin_inset Formula \begin{equation}
+u(x)=H(x)-\frac{1}{\xi}(\mathcal{S}_{b}\varphi)(x)+(\mathcal{D}_{b}\varphi)(x),
+\label{eq:decomposition_formula_asymptotic}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is defined by (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "defxi"
+
+\end_inset
+
+), 
+\begin_inset Formula $H$
+\end_inset
+
+ is given by (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_H"
+
+\end_inset
+
+), and 
+\begin_inset Formula $\varphi\in L_0^{2}(\Gamma_{b}):= \{\phi \in L^2(\Gamma_b): \int_{\Gamma_b}
+ \phi =0\}$
+\end_inset
+
+ is given by the following integral equation: 
+\begin_inset Formula \begin{equation} \label{eq:decomposition_formula_asymptotic2}
+\frac{1}{\xi}\left(\frac{1}{2}I-\mathcal{K}_{b}^{*}\right)\varphi
++\frac{\partial\mathcal{D}_{b}\varphi}{\partial\nu}=-\frac{\partial
+H}{\partial\nu}, \quad x \in \Gamma_b.
+\end{equation}
+\end_inset
+
+ The decomposition (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decomposition_formula_asymptotic"
+
+\end_inset
+
+) of 
+\begin_inset Formula $u$
+\end_inset
+
+ into a source part and a refraction part is unique. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{lem}
+\end_layout
+
+\end_inset
+
+ The proof of this lemma involves exactly the same arguments as in the previous one: jump formulas applied to the operators.
+\end_layout
+
+\begin_layout Standard
+
+The decomposition formulas
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decomposition_formula"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decomposition_formula_asymptotic"
+
+\end_inset
+
+) will be essential in the next part to derive an asymptotic expansion of 
+\begin_inset Formula $u_{\delta,k_{b}}$
+\end_inset
+
+ as 
+\begin_inset Formula $\delta\rightarrow 0$
+\end_inset
+
+ and 
+\begin_inset Formula $k_b\rightarrow
+\infty$
+\end_inset
+
+. To be more precise, we prove the following theorem: 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{thm}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:main-result"
+
+\end_inset
+
+There exists a constant 
+\begin_inset Formula $C$
+\end_inset
+
+ independent of 
+\begin_inset Formula $\delta$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{b}$
+\end_inset
+
+ such that the following inequality holds for 
+\begin_inset Formula $\delta$
+\end_inset
+
+ and 
+\begin_inset Formula $1/k_{b}$
+\end_inset
+
+ small enough: 
+\begin_inset Formula \begin{equation}
+\left\Vert u_{\delta,k_{b}}-u_{0,\infty}\right\Vert
+_{L^{\infty}(\mathbb{R}^{2})}\leq
+C\left(\delta+\frac{1}{k_{b}}\right),\label{eq:estimate-general}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $u_{\delta,k_{b}}$
+\end_inset
+
+ and 
+\begin_inset Formula $u_{0,\infty}$
+\end_inset
+
+ are the solutions of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:asymptotic_equation"
+
+\end_inset
+
+), respectively. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{thm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+For doing so, we will perform asymptotic analysis of the layer potentials introduced in the representation formula (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decomposition_formula_asymptotic"
+
+\end_inset
+
+) as 
+\begin_inset Formula $\delta \rightarrow
+0$
+\end_inset
+
+ and 
+\begin_inset Formula $k_b\rightarrow +\infty$
+\end_inset
+
+ and show that the limiting function is the solution of
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:asymptotic_equation"
+
+\end_inset
+
+). We will adapt the work done by Zribi in his thesis
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "zribilayer"
+
+\end_inset
+
+ and by Zribi and Khelifi in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "khelifizribi2011asymptotic"
+
+\end_inset
+
+. We will use the decomposition formula for 
+\begin_inset Formula $u_{\delta,k_{b}}$
+\end_inset
+
+ and compute asymptotic expansions of the refraction part. The limiting solution will then be 
+\begin_inset Formula $u_{0,\infty}$
+\end_inset
+
+. This latter is well defined if the limits 
+\begin_inset Formula $\delta\rightarrow0$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{b}\rightarrow\infty$
+\end_inset
+
+ are independent, so we must seek the two following limits: 
+\begin_inset Formula \[
+\lim_{k_{b}\rightarrow\infty}\lim_{\delta\rightarrow0}u_{\delta,k_{b}}\mbox{ and }\lim_{\delta\rightarrow0}\lim_{k_{b}\rightarrow\infty}u_{\delta,k_{b}},
+\]
+\end_inset
+
+ and show that they are the same. Zribi 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "chapter 3"
+key "zribilayer"
+
+\end_inset
+
+ studied the case when 
+\begin_inset Formula $k_{b}$
+\end_inset
+
+ remains fixed, with non-uniform thickness of the skin 
+\begin_inset Formula $\Omega_{s}$
+\end_inset
+
+; the limit 
+\begin_inset Formula $u_{0,1}$
+\end_inset
+
+ is the solution of the system: 
+\begin_inset Formula \begin{equation}
+\left\{ \begin{alignedat}{2}\Delta u_{0,1} & ={f}, & \,\, x\in\Omega_{b},\\
+\Delta u_{0,1} & =0, & \,\, x\in\mathbb{R}^{2}\setminus\overline{\Omega}_{b},\\
+\left.u_{0,1}\right|_{+}-\left.u_{0,1}\right|_{-} & =-\xi\left.\frac{\partial u_{0,1}}{\partial\nu}\right|_{+}, & \,\, x\in\partial\Omega_{b},\\
+\left.\frac{\partial u_{0,1}}{\partial\nu}\right|_{+}-k_{b}\left.\frac{\partial u_{0,1}}{\partial\nu}\right|_{-} & =0, & \,\, x\in\Omega_{b},\\
+\left|u_{0,1}\right| & = {O}(\left|x\right|^{-1}), &
+\,\,\left|x\right|\rightarrow\infty,\text{ uniformly in }\hat{x}.
+\end{alignedat}
+\right.\label{eq:asymptotic_equation_zribi}
+\end{equation}
+\end_inset
+
+ Here, we will follow the same outline for the proof: first we will remind the asymptotic expansions of the operators involved in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_phis_phib"
+
+\end_inset
+
+), and then we will match the asymptotic expansions for 
+\begin_inset Formula $\tilde{\varphi}_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\varphi_{b}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+
+Asymptotic expansions of the operators
+\end_layout
+
+\begin_layout Standard
+
+In the decomposition formula (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decomposition_formula"
+
+\end_inset
+
+), 
+\begin_inset Formula $H$
+\end_inset
+
+ is independent of 
+\begin_inset Formula $\delta$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{b}$
+\end_inset
+
+; we just have to analyze the dependence of 
+\begin_inset Formula $\tilde{\varphi}_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\varphi_{b}$
+\end_inset
+
+. Remark that from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_phis_phib"
+
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Itemize
+
+the dependence on 
+\begin_inset Formula $k_{b}$
+\end_inset
+
+ is carried only by 
+\begin_inset Formula $\lambda_{b}$
+\end_inset
+
+ since 
+\begin_inset Formula $\mathcal{S}_{b}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathcal{K}_{b}^{*}$
+\end_inset
+
+ depend only on the shape of 
+\begin_inset Formula $\Omega_{b}$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+
+the dependence on 
+\begin_inset Formula $\delta$
+\end_inset
+
+ is carried by 
+\begin_inset Formula $\lambda_{s}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathcal{S}_{s}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathcal{K}_{s}^{*}$
+\end_inset
+
+ and 
+\begin_inset Formula $\partial/\partial\nu(x)$
+\end_inset
+
+ for 
+\begin_inset Formula $x\in\Gamma_{s}$
+\end_inset
+
+. 
+\end_layout
+
+\begin_layout Standard
+
+In this subsection, we will focus on the asymptotic expansions of the operators (the limits of 
+\begin_inset Formula $\lambda_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda_{b}$
+\end_inset
+
+ are obvious). They have been performed in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "ammari2010conductivity,zribilayer"
+
+\end_inset
+
+; in order to apply this proof, we first need some assumptions.
+\end_layout
+
+\begin_layout Standard
+
+Suppose 
+\begin_inset Formula $\Gamma_{b}$
+\end_inset
+
+ is defined in the following way: 
+\begin_inset Formula \[
+\Gamma_{b}:=g\left(\partial B\right),
+\]
+\end_inset
+
+ where 
+\begin_inset Formula $g$
+\end_inset
+
+ is a 
+\begin_inset Formula $\mathcal{C}^{3,\eta}$
+\end_inset
+
+ diffeomorphism of the unit sphere 
+\begin_inset Formula $\partial B:=\partial B(0,1)$
+\end_inset
+
+ for some 
+\begin_inset Formula $\eta>0$
+\end_inset
+
+. Moreover, we suppose that the function 
+\begin_inset Formula $X_g:[0,2\pi]\rightarrow\mathbb{R}^{2}$
+\end_inset
+
+ defined by 
+\begin_inset Formula \[
+X_g =g\left(\left(\begin{array}{c}
+\cos t\\
+\sin t
+\end{array}\right)\right),
+\]
+\end_inset
+
+ is such that 
+\begin_inset Formula $\left|X_g'(t)\right|=1$
+\end_inset
+
+ for all 
+\begin_inset Formula $t\in[0,2\pi]$
+\end_inset
+
+. Thus, 
+\begin_inset Formula $X_g$
+\end_inset
+
+ is a 
+\begin_inset Formula $\mathcal{C}^{2,\eta}$
+\end_inset
+
+ arclength counterclockwise parametrization of 
+\begin_inset Formula $\Gamma_{b}$
+\end_inset
+
+. Then the outward unit normal to 
+\begin_inset Formula $\Omega_{b}$
+\end_inset
+
+, 
+\begin_inset Formula $\nu(x)$
+\end_inset
+
+ at 
+\begin_inset Formula $x=X_g(t)$
+\end_inset
+
+, is given by 
+\begin_inset Formula \[
+\nu(x)=R_{-\frac{\pi}{2}}X_g'(t),
+\]
+\end_inset
+
+ where 
+\begin_inset Formula $R_{-\frac{\pi}{2}}$
+\end_inset
+
+ is the rotation by 
+\begin_inset Formula $-\pi/2$
+\end_inset
+
+. The tangential vector 
+\begin_inset Formula $T(x)$
+\end_inset
+
+ at 
+\begin_inset Formula $x =X_g(t)$
+\end_inset
+
+ is defined by 
+\begin_inset Formula \[
+T(x)=X_g'(t),
+\]
+\end_inset
+
+ and 
+\begin_inset Formula $X_g'(t)\bot X_g''(t)$
+\end_inset
+
+. The curvature 
+\begin_inset Formula $\tau(x)$
+\end_inset
+
+ at 
+\begin_inset Formula $x=X_g(t)$
+\end_inset
+
+ is defined by 
+\begin_inset Formula \[
+X_g''(t)=\tau(x)\nu(x).
+\]
+\end_inset
+
+ Let 
+\begin_inset Formula $\Psi_{\delta}$
+\end_inset
+
+ be the diffeomorphism from 
+\begin_inset Formula $\Gamma_{b}$
+\end_inset
+
+ onto 
+\begin_inset Formula $\Gamma_{s}$
+\end_inset
+
+ given by 
+\begin_inset Formula \begin{equation} \label{defpsidelta}
+\Psi_{\delta}(x)=x+\delta\nu(x).\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+With these assumptions, the following regularity result holds 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "crisoforis2004"
+
+\end_inset
+
+: 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{thm}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:analycity"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\eta>0$
+\end_inset
+
+. Let, for a Lipschitz function 
+\begin_inset Formula $g \in \mathcal{C}^{0,1}\left(\partial
+B,\mathbb{R}^{2}\right)$
+\end_inset
+
+, 
+\begin_inset Formula \[
+l_{\partial B}[g]:=\inf_{x\neq y\in\partial
+B}\left|\frac{g(x)-g(y)}{x-y}\right|.
+\]
+\end_inset
+
+ Introduce the set 
+\begin_inset Formula $\mathcal{A}_{\partial B}$
+\end_inset
+
+ of admissible diffeomorphisms of the unit sphere: 
+\begin_inset Formula \[
+\mathcal{A}_{\partial B}:=\left\{ g\in \mathcal{C}^{1}(\partial
+B,\mathbb{R}^{2}),l_{\text{\ensuremath{\partial}B}}[g]>0\right\} .
+\]
+\end_inset
+
+ Then, for any integer 
+\begin_inset Formula $m>0$
+\end_inset
+
+, the operators 
+\begin_inset Formula $S$
+\end_inset
+
+ and 
+\begin_inset Formula $D$
+\end_inset
+
+ defined on 
+\begin_inset Formula $\left(\mathcal{C}^{m,\eta}(\partial B,\mathbb{R}^{2})\cap\mathcal{A}_{\partial B}\right)
+ \times \mathcal{C}^{m-1,\eta}(\partial B)$
+\end_inset
+
+ (
+\begin_inset Formula $\left(\mathcal{C}^{m,\eta}(\partial
+B,\mathbb{R}^{2})\cap\mathcal{A}_{\partial B}\right)\times
+\mathcal{C}^{m,\eta}(\partial B)$
+\end_inset
+
+, respectively) to 
+\begin_inset Formula $\mathcal{C}^{m,\eta}(\partial B)$
+\end_inset
+
+ by 
+\begin_inset Formula \[
+\begin{alignedat}{2}S[g,\varphi](x) & := & \mathcal{S}_{g(\partial B)}(\varphi \circ g^{-1})\circ g(x), & \, x\in\partial B,\\
+D[g,\varphi](x) & := & \mathcal{D}_{g(\partial B)}(\varphi \circ
+g^{-1})\circ g(x), & \, x\in\partial B,
+\end{alignedat}
+\]
+\end_inset
+
+ are real analytic in joint variables 
+\begin_inset Formula $g$
+\end_inset
+
+ and 
+\begin_inset Formula $\varphi$
+\end_inset
+
+. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{thm}
+\end_layout
+
+\end_inset
+
+ Moreover, we have explicit formulas for the derivatives with respect to the variable 
+\begin_inset Formula $g$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "crisoforis2004"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+Then, we have the following asymptotic expansions 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "ammari2010conductivity,zribilayer"
+
+\end_inset
+
+: 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{prop}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "pro:DL_operators"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\varphi\in\mathcal{C}^{1,\eta}(\Gamma_{b})$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\psi}\in\mathcal{C}^{1,\eta}(\Gamma_{s})$
+\end_inset
+
+ for some 
+\begin_inset Formula $\eta>0$
+\end_inset
+
+. Then, we have the following asymptotic expansions for 
+\begin_inset Formula $x\in\Gamma_{b}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\begin{aligned}\left(\mathcal{K}_{s}^{*}\tilde{\psi}\right)\circ\Psi_{\delta}(x) & =\mathcal{K}_{b}^{*}\psi(x)+\delta\mathcal{K}_{b}^{(1)}\psi(x)
++O(\delta^{2}),\\
+\frac{\partial\mathcal{S}_{b}\varphi}{\partial\nu}\circ\Psi_{\delta}(x) & =\left(\frac{1}{2}I+\mathcal{K}_{b}^{*}\right)\varphi(x)+\delta\mathcal{R}_{b}\varphi(x)+O(\delta^{1+\eta}),\\
+\frac{\partial\mathcal{S}_{s}\tilde{\psi}}{\partial\nu}(x) & =\left(-\frac{1}{2}I+\mathcal{K}_{b}^{*}\right)\psi(x)+\delta\mathcal{L}_{b}\psi(x)+O(\delta^{1+\eta}),
+\end{aligned}
+\label{eq:DL_operators}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $\psi:=\tilde{\psi}\circ\Psi_{\delta}$
+\end_inset
+
+, 
+\begin_inset Formula $\Psi_\delta$
+\end_inset
+
+ being defined by (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "defpsidelta"
+
+\end_inset
+
+), and 
+\begin_inset Formula \begin{equation}
+\begin{aligned}\mathcal{K}_{b}^{(1)}\psi(x) & =\tau(x)\mathcal{K}_{b}^{*}\psi(x)-\mathcal{K}_{b}^{*}(\tau\psi)(x)-\frac{d^{2}\mathcal{S}_{b}\psi}{dt^{2}}(x)+\frac{\partial\mathcal{D}_{b}\psi}{\partial\nu}(x),\\
+\mathcal{R}_{b}\varphi(x) & =\tau(x)\left(\frac{1}{2}I+\mathcal{K}_{b}^{*}\right)\varphi(x)
+-\frac{d^{2}\mathcal{S}_{b}\varphi}{dt^{2}}(x),\\
+\mathcal{L}_{b}\psi(x) & =\left(\frac{1}{2}I-\mathcal{K}_{b}^{*}\right)(\tau\psi)(x)+\frac{\partial\mathcal{D}_{b}\psi}{\partial\nu}(x),
+\end{aligned}
+\label{eq:definition_K1_R_L}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $d/dt$
+\end_inset
+
+ is the tangential derivative in the direction of 
+\begin_inset Formula $T(x)=X_g' \circ X_g^{-1}(x)$
+\end_inset
+
+. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{prop}
+\end_layout
+
+\end_inset
+
+ Note that, according to Theorem
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:analycity"
+
+\end_inset
+
+, the constants in the 
+\begin_inset Formula $O(\delta^{1+\eta})$
+\end_inset
+
+ terms depend on 
+\begin_inset Formula $\left\Vert g\right\Vert _{\mathcal{C}^{3,\eta}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+Moreover, since the thickness of 
+\begin_inset Formula $\Omega_{s}$
+\end_inset
+
+ is uniform, we have 
+\begin_inset Formula $\nu\circ\Psi_{\delta}(x)=\nu(x)$
+\end_inset
+
+, and a Taylor expansion of 
+\begin_inset Formula $H$
+\end_inset
+
+ gives, for 
+\begin_inset Formula $x\in\Gamma_{b}$
+\end_inset
+
+: 
+\begin_inset Formula \begin{equation}
+\frac{\partial H}{\partial\nu}\circ\Psi_{\delta}(x)=\frac{\partial
+H}{\partial\nu}(x) +\delta \nu(x) \cdot \big[ D^{2}H(x)\nu(x)
+\big] +O(\delta^{2}),\label{eq:DL_H}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $D^{2}H$
+\end_inset
+
+ denotes the Hessian of 
+\begin_inset Formula $H$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+
+Asymptotic expansions on the layers
+\end_layout
+
+\begin_layout Standard
+
+In order to prove Theorem
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:main-result"
+
+\end_inset
+
+, we will first show the convergence on the layers (see next lemma). Then, in the next subsection, we will extend the domain of validity by application of the maximum principle.
+\end_layout
+
+\begin_layout Standard
+
+The following lemma holds. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+begin{lem}
+\end_layout
+
+\end_inset
+
+ There exist constants 
+\begin_inset Formula $C$
+\end_inset
+
+ and 
+\begin_inset Formula $C'$
+\end_inset
+
+ independent of 
+\begin_inset Formula $\delta$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{b}$
+\end_inset
+
+ such that the following inequalities hold for 
+\begin_inset Formula $\delta$
+\end_inset
+
+ and 
+\begin_inset Formula $1/k_{b}$
+\end_inset
+
+ small enough: 
+\begin_inset Formula \begin{equation}
+\begin{alignedat}{2}\left\Vert u_{\delta,k_{b}}-u_{0,\infty}\right\Vert _{L^{\infty}(\Gamma_{b})} & \leq & C\left(\delta+\frac{1}{k_{b}}\right),\\
+\left\Vert u_{\delta,k_{b}}-u_{0,\infty}\right\Vert
+_{L^{\infty}(\Gamma_{s})} & \leq & C^\prime
+\left(\delta+\frac{1}{k_{b}}\right),
+\end{alignedat}
+\label{eq:estimates-layer}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $u_{\delta,k_{b}}$
+\end_inset
+
+ and 
+\begin_inset Formula $u_{0,\infty}$
+\end_inset
+
+ are solutions of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:asymptotic_equation"
+
+\end_inset
+
+), respectively.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+end{lem}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+proof
+\end_layout
+
+\end_inset
+
+ Only the first limit will be shown, the second one being very similar. For this purpose, we must show that the limits 
+\begin_inset Formula $\delta\rightarrow0$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{b}\rightarrow\infty$
+\end_inset
+
+ are independent, 
+\emph on
+i.e.
+\emph default
+, they commute. First, let us compute the limit of 
+\begin_inset Formula $u_{\delta,k_{b}}$
+\end_inset
+
+ when 
+\begin_inset Formula $\delta\rightarrow0$
+\end_inset
+
+, and then the limit 
+\begin_inset Formula $k_{b}\rightarrow\infty$
+\end_inset
+
+ (which will be much easier). Then, we will invert this process.
+\end_layout
+
+\begin_layout Standard
+
+This first limit is the main problem in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "chapter 3"
+key "zribilayer"
+
+\end_inset
+
+, except that, in that study, 
+\begin_inset Formula $k_{b}=1$
+\end_inset
+
+ and the thickness of 
+\begin_inset Formula $\Omega_{s}$
+\end_inset
+
+ is non-uniform. According to theorem
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:analycity"
+
+\end_inset
+
+, the formulas in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "crisoforis2004"
+
+\end_inset
+
+, and by composition with the regular diffeomorphism 
+\begin_inset Formula $\Psi_{\delta}$
+\end_inset
+
+ from 
+\begin_inset Formula $\Gamma_{s}$
+\end_inset
+
+ to 
+\begin_inset Formula $\Gamma_{b}$
+\end_inset
+
+, we have 
+\begin_inset Formula \[
+\left\Vert
+\mathcal{S}_{s}\tilde{\varphi}_{s}-\mathcal{S}_{b}\varphi_{s}-\delta\left[\left(-\frac{1}{2}I+\mathcal{K}_{b}\right)\varphi_{s}-\mathcal{S}_{b}(\tau\varphi_{s})\right]
+\right\Vert _{\mathcal{C}^{2,\eta}(\Gamma_{b})}\leq C\delta^{2},
+\]
+\end_inset
+
+ where 
+\begin_inset Formula $\varphi_{s}:=\tilde{\varphi_{s}}\circ\Psi_{\delta}$
+\end_inset
+
+. Hence, with the help of the decomposition formula
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decomposition_formula"
+
+\end_inset
+
+), we have the following asymptotic expansion uniformly on 
+\begin_inset Formula $\Gamma_{b}$
+\end_inset
+
+: 
+\begin_inset Formula \begin{equation}
+u_{\delta,k_{b}}(x)=H(x)+\mathcal{S}_{b}(\varphi_{b}+\varphi_{s})(x)+\delta\left[\left(-\frac{1}{2}I+\mathcal{K}_{b}\right)\varphi_{s}(x)-\mathcal{S}_{b}(\tau\varphi_{s})\right](x)+O(\delta^{2}),\label{eq:DL_u}
+\end{equation}
+\end_inset
+
+ We now look for expansions of the functions 
+\begin_inset Formula $\varphi_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\varphi_{b}$
+\end_inset
+
+ when 
+\begin_inset Formula $\delta\rightarrow0$
+\end_inset
+
+ that will be re-injected in this equation. Using Proposition
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "pro:DL_operators"
+
+\end_inset
+
+ and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_phis_phib"
+
+\end_inset
+
+), these functions are solutions of the following system: 
+\begin_inset Formula \begin{multline}
+\left\{ \begin{alignedat}{1}\frac{k_{s}}{k_{s}-1}\varphi_{s}-\left(\frac{1}{2}I+\mathcal{K}_{b}^{*}\right)(\varphi_{s}+\varphi_{b})+\delta\left[-\mathcal{K}_{b}^{(1)}\varphi_{s}-\mathcal{R}_{b}\varphi_{b}\right]+O(\delta^{1+\eta}) & =\\
+\frac{\partial H}{\partial\nu}+\delta \big[\nu \cdot D^{2}H\nu \big]  +O(\delta^{2}),\\
+\frac{k_{s}}{k_{s}-k_{b}}\varphi_{b}+\left(-\frac{1}{2}I+\mathcal{K}_{b}^{*}\right)(\varphi_{s}+\varphi_{b})
++\delta\mathcal{L}_{b}\varphi_{s}+O(\delta^{1+\eta}) &
+=-\frac{\partial H}{\partial\nu}.
+\end{alignedat}
+\right.\label{eq:modified_system}
+\end{multline}
+\end_inset
+
+ Let us define the formal asymptotic expansions: 
+\begin_inset Formula \[
+\left\{ \begin{alignedat}{1}\varphi_{s} & =\frac{1}{\delta}\varphi_{s}^{(-1)}+\varphi_{s}^{(0)}+\delta\varphi_{s}^{(1)}+\ldots,\\
+\varphi_{b} & =\frac{1}{\delta}\varphi_{b}^{(-1)}+\varphi_{b}^{(0)}+\delta\varphi_{b}^{(1)}+\ldots.
+\end{alignedat}
+\right.
+\]
+\end_inset
+
+ Aiming to have the 
+\begin_inset Formula $0$
+\end_inset
+
+-order term in the expansion (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:DL_u"
+
+\end_inset
+
+), here we seek for the terms of order 
+\begin_inset Formula $-1$
+\end_inset
+
+ and 
+\begin_inset Formula $0$
+\end_inset
+
+. By substitution into (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:modified_system"
+
+\end_inset
+
+) and identification of the leading-order terms in the first line, we get: 
+\begin_inset Formula \[
+\left(\frac{1}{2}I+\mathcal{K}_{b}^{*}\right)\left(\varphi_{s}^{(-1)}+\varphi_{b}^{(-1)}\right)=0,
+\]
+\end_inset
+
+ so that, by Theorem
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:invertibility_lambda_K"
+
+\end_inset
+
+, we have: 
+\begin_inset Formula \begin{equation}
+\varphi_{s}^{(-1)}+\varphi_{b}^{(-1)}=0.\label{eq:phis+phib_ordre-1}
+\end{equation}
+\end_inset
+
+ Let us now look at the 
+\begin_inset Formula $0$
+\end_inset
+
+-order terms; summing the two lines of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:modified_system"
+
+\end_inset
+
+), we get: 
+\begin_inset Formula \[
+\frac{1}{\xi}\left(\varphi_{s}^{(-1)}+\frac{1}{k_{b}}\varphi_{b}^{(-1)}\right)+(\varphi_{s}^{(0)}+\varphi_{b}^{(0)})
++
+\left[\mathcal{K}_{b}^{(1)}\varphi_{s}^{(-1)}+\mathcal{R}_{b}\varphi_{b}^{(-1)}-\mathcal{L}_{b}\varphi_{s}^{(-1)}\right]=0,
+\]
+\end_inset
+
+ which gives, with the help of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_K1_R_L"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:phis+phib_ordre-1"
+
+\end_inset
+
+), 
+\begin_inset Formula \begin{equation}
+\varphi_{s}^{(0)}+\varphi_{b}^{(0)}=\left[\left(\frac{1}{k_{b}}-1\right)
+\frac{1}{\xi}
++\tau\right]\varphi_{s}^{(-1)}.\label{eq:phis0+phib0}
+\end{equation}
+\end_inset
+
+ This quantity is what we need in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:DL_u"
+
+\end_inset
+
+); thus, only 
+\begin_inset Formula $\varphi_{s}^{(-1)}$
+\end_inset
+
+ remains to be found. This can be done by matching 
+\begin_inset Formula $0$
+\end_inset
+
+-order terms in the first line of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:modified_system"
+
+\end_inset
+
+) and using the definitions of 
+\begin_inset Formula $\mathcal{K}_{b}^{(1)}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathcal{R}_{b}$
+\end_inset
+
+ given by (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_K1_R_L"
+
+\end_inset
+
+): 
+\begin_inset Formula \begin{equation}
+\frac{1}{\xi}\varphi_{s}^{(-1)}+\frac{1}{\xi}\left(\frac{1}{k_{b}}-1\right)\left(\frac{1}{2}I+\mathcal{K}_{b}^{*}\right)\varphi_{s}^{(-1)}+\frac{\partial\mathcal{D}_{b}\varphi_{s}^{(-1)}}{\partial\nu}=-\frac{\partial
+H}{\partial\nu}.\label{eq:definition_phis_-1}
+\end{equation}
+\end_inset
+
+ Finally, the expansion (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:DL_u"
+
+\end_inset
+
+) yields: 
+\begin_inset Formula \begin{equation}
+u_{\delta,k_{b}}(x)=H(x)+\left[\frac{1}{\xi}\left(\frac{1}{k_{b}}-1\right)\mathcal{S}_{s}+\left(-\frac{1}{2}I+\mathcal{K}_{b}\right)\right]\varphi_{s}^{(-1)}(x)+O(\delta).\label{eq:u_delta_sigma_ordre1}
+\end{equation}
+\end_inset
+
+ This leading-order term (denoted 
+\begin_inset Formula $u_{0,k_{b}}$
+\end_inset
+
+) verifies (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:asymptotic_equation_zribi"
+
+\end_inset
+
+) according to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_phis_-1"
+
+\end_inset
+
+) and jump formulas
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:jump_formulas"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+
+The asymptotic 
+\begin_inset Formula $k_{b}\rightarrow\infty$
+\end_inset
+
+ does not add further difficulty. Indeed, let us define the following asymptotic: 
+\begin_inset Formula \[
+\varphi_{s}^{(-1)}=\varphi_{s}^{(-1,0)}+\frac{1}{k_{b}}\varphi_{s}^{(-1,1)}+\ldots.
+\]
+\end_inset
+
+ By substitution into equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_phis_-1"
+
+\end_inset
+
+) and identification of the leading-order terms, we get: 
+\begin_inset Formula \[
+\frac{1}{\xi}\left(\frac{1}{2}I-\mathcal{K}_{b}^{*}\right)\varphi_{s}^{(-1,0)}+\frac{\partial\mathcal{D}_{b}\varphi_{s}^{(-1,0)}}{\partial\nu}=-\frac{\partial H}{\partial\nu},
+\]
+\end_inset
+
+ and then the expansion
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:u_delta_sigma_ordre1"
+
+\end_inset
+
+) becomes: 
+\begin_inset Formula \begin{equation}
+u_{\delta,k_{b}}(x)=H(x)-\frac{1}{\xi}\mathcal{S}_{s}\varphi_{s}^{(-1,0)}(x)+\left(-\frac{1}{2}I+\mathcal{K}_{b}\right)\varphi_{s}^{(-1,0)}(x)+O\left(\delta\right),\label{eq:DL_u_final}
+\end{equation}
+\end_inset
+
+ which is (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decomposition_formula_asymptotic"
+
+\end_inset
+
+) applied on 
+\begin_inset Formula $\Gamma_{b}$
+\end_inset
+
+ according to the jump formula of 
+\begin_inset Formula $\mathcal{D}_{b}$
+\end_inset
+
+
+\begin_inset space ~
+
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:jump_formulas"
+
+\end_inset
+
+). Hence, according to lemma
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:decomposition_lemma_asymptotic"
+
+\end_inset
+
+, the first-order asymptotic of 
+\begin_inset Formula $u_{\delta,k_{b}}$
+\end_inset
+
+ is 
+\begin_inset Formula $u_{0,\infty}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+Let us now show that the limits 
+\begin_inset Formula $\delta\rightarrow0$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{b}\rightarrow\infty$
+\end_inset
+
+ commute: unlike in the previous subsection, we will first perform the limit 
+\begin_inset Formula $k_{b}\rightarrow\infty$
+\end_inset
+
+ and then the limit 
+\begin_inset Formula $\delta\rightarrow0$
+\end_inset
+
+. Given the fact that 
+\begin_inset Formula \[
+\lambda_{b}=-\frac{1}{2}+O\left(\frac{1}{k_{b}}\right),
+\]
+\end_inset
+
+ the definition of 
+\begin_inset Formula $\tilde{\varphi_{s}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\varphi_{b}$
+\end_inset
+
+ in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_phis_phib"
+
+\end_inset
+
+) will be affected only in the second line. Indeed, with the following expansions: 
+\begin_inset Formula \[
+\left\{ \begin{alignedat}{1}\tilde{\varphi_{s}} & =\tilde{\varphi}_{s}^{(0)}+\frac{1}{k_{b}}\tilde{\varphi}_{s}^{(1)}+\ldots,\\
+\varphi_{b} & =\varphi_{b}^{(0)}+\frac{1}{k_{b}}\varphi_{b}^{(1)}+\ldots,
+\end{alignedat}
+\right.
+\]
+\end_inset
+
+ this second line becomes, at the leading order: 
+\begin_inset Formula \[
+\left(-\frac{1}{2}I+\mathcal{K}_{b}^{*}\right)(\varphi_{s}^{(0)}+\varphi_{b}^{(0)})+\delta\mathcal{L}_{b}\varphi_{s}^{(0)}+O(\delta^{1+\eta})=-\frac{\partial H}{\partial\nu},
+\]
+\end_inset
+
+ where 
+\begin_inset Formula $\varphi_{s}^{(0)}:=\tilde{\varphi_{s}}^{(0)}\circ\Psi_{\delta}$
+\end_inset
+
+. With the expansion: 
+\begin_inset Formula \[
+\left\{ \begin{alignedat}{1}\varphi_{s}^{(0)} & =\frac{1}{\delta}\varphi_{s}^{(0,-1)}+\varphi_{s}^{(0,0)}+\delta\varphi_{s}^{(0,1)}+\ldots,\\
+\varphi_{b}^{(0)} & =\frac{1}{\delta}\varphi_{b}^{(0,-1)}+\varphi_{b}^{(0,0)}+\delta\varphi_{b}^{(0,1)}+\ldots,
+\end{alignedat}
+\right.
+\]
+\end_inset
+
+ the identifications (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:phis+phib_ordre-1"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:phis0+phib0"
+
+\end_inset
+
+), and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_phis_-1"
+
+\end_inset
+
+) respectively become: 
+\begin_inset Formula \begin{equation}
+\varphi_{s}^{(0,-1)}+\varphi_{b}^{(0,-1)}=0,\label{eq:phis+phib_ordre-1(bis)}
+\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\varphi_{s}^{(0,0)}+\varphi_{b}^{(0,0)}=\left[\tau-\frac{1}{\xi}\right]\varphi_{s}^{(0,-1)},\label{eq:phis0+phib0(bis)}
+\end{equation}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\frac{1}{\xi}\left(\frac{1}{2}I-\mathcal{K}_{b}^{*}\right)\varphi_{s}^{(0,-1)}+\frac{\partial\mathcal{D}_{b}\varphi_{s}^{(0,-1)}}{\partial\nu}=-\frac{\partial H}{\partial\nu}.\label{eq:definition_phis_-1(bis)}
+\end{equation}
+\end_inset
+
+ Finally, recalling that the expansion of 
+\begin_inset Formula $u_{\delta,k_{b}}$
+\end_inset
+
+ in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:DL_u"
+
+\end_inset
+
+) is conductivity-independent, we obtain the same expansion (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:DL_u_final"
+
+\end_inset
+
+). 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+cqfd
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+Proof of Theorem
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:main-result"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+With the estimates (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:estimates-layer"
+
+\end_inset
+
+) on the layers 
+\begin_inset Formula $\Gamma_{b}$
+\end_inset
+
+ and 
+\begin_inset Formula $\Gamma_{s}$
+\end_inset
+
+, we are now ready to prove the estimate (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:estimate-general"
+
+\end_inset
+
+) on the whole space applying the maximum principle.
+\end_layout
+
+\begin_layout Standard
+
+For the sets 
+\begin_inset Formula $\Omega_{b}$
+\end_inset
+
+ and 
+\begin_inset Formula $\Omega_{s}$
+\end_inset
+
+, it is straightforward: the function 
+\begin_inset Formula $u_{\delta,k_{b}}-u_{0,\infty}$
+\end_inset
+
+ is harmonic in these bounded domains, so the maximum is reached on the boundaries
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "taylor1"
+
+\end_inset
+
+. And, since this maximum is dominated by 
+\begin_inset Formula $\delta$
+\end_inset
+
+ and 
+\begin_inset Formula $1/k_{b}$
+\end_inset
+
+, we have: 
+\begin_inset Formula \[
+\left\Vert u_{\delta,k_{b}}-u_{0,\infty}\right\Vert _{L^{\infty}(\bar{\Omega_{b}}
+\cup\Omega_{s})}\leq C\left(\delta+\frac{1}{k_{b}}\right).
+\]
+\end_inset
+
+ For the exterior domain, we cannot apply directly the maximum principle since this domain is unbounded. However, the conditions at infinity in the systems (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:asymptotic_equation"
+
+\end_inset
+
+) allow us to have a similar control. Indeed, this condition tells us that 
+\begin_inset Formula \begin{equation}
+\left\Vert u_{\delta,k_{b}}-u_{0,\infty}\right\Vert
+_{L^{\infty}(B(0,R))}=O(R^{-1}).\label{eq:infinite_condition_error}
+\end{equation}
+\end_inset
+
+ We take: 
+\begin_inset Formula \[
+\varepsilon:=\frac{1}{2}\left\Vert u_{\delta,k_{b}}-u_{0,\infty}\right\Vert _{L^{\infty}(\bar{\Omega_{b}}\cup\Omega_{s})},
+\]
+\end_inset
+
+ and choose 
+\begin_inset Formula $R_{0}$
+\end_inset
+
+ such that, for 
+\begin_inset Formula $R\geq R_{0}$
+\end_inset
+
+, the right-hand side of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:infinite_condition_error"
+
+\end_inset
+
+) is bounded by 
+\begin_inset Formula $\varepsilon$
+\end_inset
+
+. Then, we have: 
+\begin_inset Formula \[
+\left\Vert u_{\delta,k_{b}}-u_{0,\infty}\right\Vert
+_{L^{\infty}(\mathbb{R}^{2}\setminus B(0,R_{0}))}\leq\varepsilon.
+\]
+\end_inset
+
+ Now, only the bounded domain 
+\begin_inset Formula $B(0,R_{0})\setminus\left(\overline{\Omega}_{b}\cup\Omega_{s}\right)$
+\end_inset
+
+ remains, where we can apply the maximum principle. Thus, Theorem
+\begin_inset space ~
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:main-result"
+
+\end_inset
+
+ is proved.
+\end_layout
+
+\begin_layout Subsection
+
+Final formulation and notation
+\end_layout
+
+\begin_layout Standard
+
+In the previous subsections, we have performed a multi-scale analysis of the problem to identify the effective equations with boundary conditions. In order to make things clear, let us summarize the results and simplify the notation.
+\end_layout
+
+\begin_layout Standard
+
+The electric potential emitted by the fish is the solution of the complex-conductivity equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:EQS-final"
+
+\end_inset
+
+) with boundary conditions given by the system (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:asymptotic_equation"
+
+\end_inset
+
+). It is easy to see that in the case of an inhomogeneity outside the body, these boundary conditions will not be changed because the asymptotics are done with the layer potentials of the domains defining the fish.
+\end_layout
+
+\begin_layout Standard
+
+Hence, we conclude this section by summing up the results: omitting all the subscripts, the electric potential 
+\begin_inset Formula $u$
+\end_inset
+
+ is the solution of the system 
+\begin_inset Formula \begin{equation}
+\left\{ \begin{alignedat}{2}\Delta u & = {f}, & \,
+\, x\in \Omega,\\
+\nabla\cdot (1+ (k -1 +i\varepsilon\omega) \chi_D) \nabla u & = 0,
+& \,
+\, x\in\mathbb{R}^{2}\setminus\overline{\Omega},\\
+{} u \big|_+ - u \big|_- -\xi\left.\frac{\partial u}{\partial\nu}\right|_{+} & =0, & \,\, x\in\Gamma,\\
+\left.\frac{\partial u}{\partial\nu}\right|_{-} & =0, & \,\, x\in\Gamma,\\
+\left|u\right| & = {O}(\left|x\right|^{-1}), &
+\,\,\left|x\right|\rightarrow\infty,\text{ uniformly in }\hat{x},
+\end{alignedat}
+\right.\label{eq:direct_problem-final}
+\end{equation}
+\end_inset
+
+ where 
+\begin_inset Formula $\Gamma:= \partial \Omega$
+\end_inset
+
+, 
+\begin_inset Formula $\chi_D$
+\end_inset
+
+ is the characteristic function of the target 
+\begin_inset Formula $D$
+\end_inset
+
+, 
+\begin_inset Formula $k+ i \varepsilon \omega$
+\end_inset
+
+ is the conductivity inside 
+\begin_inset Formula $D$
+\end_inset
+
+, 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is the frequency, and 
+\begin_inset Formula $k$
+\end_inset
+
+ and 
+\begin_inset Formula $\varepsilon$
+\end_inset
+
+ are positive constants. Here, we have assumed that 
+\begin_inset Formula $\sum_{j=1}^m \alpha_j=0$
+\end_inset
+
+. 
+\end_layout
+
+\begin_layout Subsection
+
+The case of non-neutral charges in the body
+\end_layout
+
+\begin_layout Standard
+
+We conclude this section by listing the modifications to our results and formulas in the case where the neutral charge condition (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "neutre"
+
+\end_inset
+
+) does not hold.
+\end_layout
+
+\begin_layout Standard
+
+First, the far field condition in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:governing_equation"
+
+\end_inset
+
+) should be replaced with 
+\begin_inset Formula \begin{equation} \label{eq:governing_equation_rad}
+\left|u_{\delta,k_{b}} - (\sum_{j=1}^m \alpha_j)  \frac{(\lambda_b
++ 1/2) (\lambda_s + 1/2)}{2 \pi (\lambda_b -1/2) (\lambda_s -
+1/2)} \log |x| \right|  = {O}(\left|x\right|^{-1}), \quad
+\,\,\left|x\right|\rightarrow\infty \text{ uniformly in }\hat{x},
+\end{equation}
+\end_inset
+
+ where the parameters 
+\begin_inset Formula $\lambda_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda_{b}$
+\end_inset
+
+ are given by (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "deflambdas"
+
+\end_inset
+
+). In order to check this far field condition, recall that 
+\begin_inset Formula $\mathcal{K}_b(1) = \mathcal{K}_s(1)=1/2$
+\end_inset
+
+. From 
+\begin_inset Formula \[
+\int_{\Gamma_b}
+\frac{\partial\mathcal{S}_{b}\varphi_{b}}{\partial\nu} \bigg |_{+}
+= \int_{\Gamma_b} \varphi_b, \quad \int_{\Gamma_s}
+\frac{\partial\mathcal{S}_{s}\tilde{\varphi_{s}}}{\partial\nu}
+\bigg |_{-} = 0, \quad \int_{\Gamma_s} \frac{\partial H}{\partial
+\nu} = \int_{\Gamma_b} \frac{\partial H}{\partial \nu} =
+\sum_{j=1}^m \alpha_j,
+\]
+\end_inset
+
+ by integrating the two equations in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:definition_phis_phib"
+
+\end_inset
+
+) on 
+\begin_inset Formula $\Gamma_s$
+\end_inset
+
+ and 
+\begin_inset Formula $\Gamma_b$
+\end_inset
+
+, respectively, we find that 
+\begin_inset Formula \[
+\int_{\Gamma_s} \tilde{\varphi_{s}} =  (\ds \sum_{j=1}^m \alpha_j)
+\frac{(\lambda_b + 1/2)}{(\lambda_s -1/2) (\lambda_b -1/2)} \quad
+\mbox{ and } \quad \int_{\Gamma_b} {\varphi_{b}} =
+\frac{\sum_{j=1}^m \alpha_j}{\lambda_b -1/2},
+\]
+\end_inset
+
+ and therefore, from the representation formula (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decomposition_formula"
+
+\end_inset
+
+) it follows that 
+\begin_inset Formula \[\left|u_{\delta,k_{b}} - \ds (\sum_{j=1}^m \alpha_j) \frac{(\lambda_b + 1/2) (\lambda_s +
+1/2)}{2 \pi (\lambda_b -1/2) (\lambda_s - 1/2)} \log |x| \right| =
+{O}(\left|x\right|^{-1}), \quad
+\,\,\left|x\right|\rightarrow\infty \text{ uniformly in
+}\hat{x}.\]
+\end_inset
+
+ Note that in the limit 
+\begin_inset Formula $\delta\rightarrow 0$
+\end_inset
+
+ and 
+\begin_inset Formula $k_b
+\rightarrow \infty$
+\end_inset
+
+, it follows from (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "deflambdas"
+
+\end_inset
+
+) that 
+\begin_inset Formula $\lambda_b \rightarrow -1/2, \lambda_s \rightarrow -1/2$
+\end_inset
+
+, and hence, the far field condition above yields 
+\begin_inset Formula \begin{equation} \label{radiationoinft}
+\left|u_{0,\infty} \right| = {O}(\left|x\right|^{-1}), \quad
+\,\,\left|x\right|\rightarrow\infty \text{ uniformly in }\hat{x},
+\end{equation}
+\end_inset
+
+ as stated in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:asymptotic_equation"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+
+Moreover, in the case of non-neutral charges in the body, Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lemlatter"
+
+\end_inset
+
+ holds, where the solution of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqs210"
+
+\end_inset
+
+) verifies the far field condition 
+\begin_inset Formula \[
+\left|u - \ds (\sum_{j=1}^m \alpha_j) \frac{(\lambda_b + 1/2)
+(\lambda_s + 1/2)}{2 \pi (\lambda_b -1/2) (\lambda_s - 1/2)} \log
+|x| \right| = {O}(\left|x\right|^{-1}), \quad
+\, \, \left|x\right|\rightarrow\infty \text{ uniformly in }\hat{x}.
+\]
+\end_inset
+
+ Analogously, Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:decomposition_lemma_asymptotic"
+
+\end_inset
+
+ holds. However, (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:decomposition_formula_asymptotic2"
+
+\end_inset
+
+) should be replaced with 
+\begin_inset Formula \[
+\frac{1}{\xi}\left(\frac{1}{2}I-\mathcal{K}_{b}^{*}\right)\varphi
++\frac{\partial\mathcal{D}_{b}\varphi}{\partial\nu}=-\frac{\partial
+H}{\partial\nu} + \frac{1}{|\Gamma_b|} \sum_{j=1}^m \alpha_j,
+\quad x \in \Gamma_b.
+\]
+\end_inset
+
+ Note that since 
+\begin_inset Formula \[\ds \int_{\Gamma_b} \frac{\partial H}{\partial
+\nu} = \sum_{j=1}^m \alpha_j,\]
+\end_inset
+
+ the far field condition (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "radiationoinft"
+
+\end_inset
+
+) is satisfied for the limiting solution 
+\begin_inset Formula $u_{0,\infty}$
+\end_inset
+
+ in the non-neutral case.
+\end_layout
+
+\begin_layout Standard
+
+On the other hand, if the assumption (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "neutre"
+
+\end_inset
+
+) does not hold, then the boundary condition on 
+\begin_inset Formula ${\partial
+u_{0,\infty}}/{\partial\nu}\big|_{-}$
+\end_inset
+
+ should be replaced with 
+\begin_inset Formula \[
+\frac{\partial u_{0,\infty}}{\partial\nu}\bigg|_{-} =
+\frac{1}{|\partial \Omega_b|} \sum_{j=1}^m \alpha_j.
+\]
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+Analogously, we should replace in (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:direct_problem-final"
+
+\end_inset
+
+) the boundary condition 
+\begin_inset Formula ${\partial u}/{\partial\nu}\big|_{-} =0$
+\end_inset
+
+ on 
+\begin_inset Formula $\Gamma$
+\end_inset
+
+ with 
+\begin_inset Formula \[\frac{\partial u}{\partial\nu}\big|_{-} =
+\frac{1}{|\Gamma|} \sum_{j=1}^m \alpha_j.\]
+\end_inset
+
+ From now on, we restrict ourselves to the case 
+\begin_inset Formula $\sum_{j=1}^m \alpha_j =0$
+\end_inset
+
+. Note that taking two points 
+\begin_inset Formula $z_1$
+\end_inset
+
+ and 
+\begin_inset Formula $z_2 \in \Omega$
+\end_inset
+
+ close enough and 
+\begin_inset Formula $\alpha_1 = - \alpha_2 \neq 0$
+\end_inset
+
+ yields an approximation of a dipole at 
+\begin_inset Formula $(z_1+z_2)/2$
+\end_inset
+
+ of moment 
+\begin_inset Formula $|\alpha_1|$
+\end_inset
+
+ and direction orthogonal to 
+\begin_inset Formula $(z_1-z_2)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+
+Numerical simulations
+\end_layout
+
+\begin_layout Standard
+
+In this section, numerical results are presented in order to illustrate the results proved in the previous section. The method used to compute the electric field is explained in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:direct-problem-numeric"
+
+\end_inset
+
+. We approximate the shape of the fish by an ellipse with semi-axes of lengths 
+\begin_inset Formula $1$
+\end_inset
+
+ and 
+\begin_inset Formula $0.3$
+\end_inset
+
+; the electric organ is a dipole in the 
+\begin_inset Formula $x_1$
+\end_inset
+
+-direction of moment 
+\begin_inset Formula $1$
+\end_inset
+
+, placed at 
+\begin_inset Formula $z_{0}=(0.7,0)$
+\end_inset
+
+ and the impedance is 
+\begin_inset Formula $\xi=0.1$
+\end_inset
+
+. A ball of infinite conductivity (more precisely, with 
+\begin_inset Formula $\sigma=10^{10}$
+\end_inset
+
+ and 
+\begin_inset Formula $\varepsilon=0$
+\end_inset
+
+) and radius 
+\begin_inset Formula $r=0.05$
+\end_inset
+
+ is located at 
+\begin_inset Formula $(1.5\cos(\pi/3),1.5\sin(\pi/3))$
+\end_inset
+
+. Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fish_like_simul"
+
+\end_inset
+
+ shows the isopotentials. In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:zoom-target"
+
+\end_inset
+
+ it can be seen that the isopotentials avoid the target since it is of infinite conductivity.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+begin{figure}[!h]
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+centering%
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+begin{tabular}{cc}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+includegraphics[height=2cm, width=2cm]
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+epsfig{fish_like_simul.eps}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%& 
+\backslash
+includegraphics[height=2cm,width=2cm]
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+epsfig{zoom_anomaly.eps}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+tabularnewline (a) & (b)
+\backslash
+tabularnewline
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+end{tabular}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+caption{
+\backslash
+label{fig:fish_like_simul}Isopotentials of the case
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%described: (a) global overview (b) zoom on the anomaly.}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+end{figure}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Float figure
+placement !h
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+subfigure[Global overview]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:fish_like_simul"
+
+\end_inset
+
+
+\begin_inset Graphics 
+	filename model/fish_like_simul.eps
+	width 10cm
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+subfigure[Zoom on the target]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:zoom-target"
+
+\end_inset
+
+
+\begin_inset Graphics 
+	filename model/zoom_anomaly.eps
+	width 8cm
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+
+\begin_layout Standard
+
+Isopotentials of the case described.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,135 @@
+\changetocdepth {2}
+\changetocdepth {2}
+\contentsline {chapter}{Contents}{i}{section*.1}
+\contentsline {chapter}{\chapternumberline {1}Introduction and overview}{7}{chapter.1}
+\contentsline {section}{\numberline {1.1}State of the Art}{7}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Discovery of the Electric Sense: a Brief History}{7}{subsection.1.1.1}
+\contentsline {paragraph}{Bioelectrogenesis}{8}{subsection.1.1.1}
+\contentsline {paragraph}{Electroreception}{8}{figure.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Weakly Electric Fish}{9}{subsection.1.1.2}
+\contentsline {subsubsection}{Taxonomy and living conditions}{9}{subsection.1.1.2}
+\contentsline {subsubsection}{Emitting and receiving the electric field}{9}{figure.1.3}
+\contentsline {paragraph}{The electric organ}{9}{figure.1.3}
+\contentsline {paragraph}{Electroreceptors}{11}{figure.1.5}
+\contentsline {subsection}{\numberline {1.1.3}Electrolocation}{12}{subsection.1.1.3}
+\contentsline {subsubsection}{Passive electro-location}{12}{subsection.1.1.3}
+\contentsline {subsubsection}{Active electro-location}{13}{figure.1.8}
+\contentsline {subsubsection}{Modelling the electric field}{14}{figure.1.11}
+\contentsline {section}{\numberline {1.2}Overview of the Thesis}{16}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Interests and Potential Applications}{16}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Organization of the Thesis}{17}{subsection.1.2.2}
+\contentsline {chapter}{\chapternumberline {2}Mathematical Model}{19}{chapter.2}
+\contentsline {section}{\numberline {2.1}Introduction}{19}{section.2.1}
+\contentsline {section}{\numberline {2.2}Physical modeling}{20}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Electromagnetic formulation}{20}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Non-dimensionalization}{21}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Problem setup}{22}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Existence, uniqueness, and representation of the electric potential}{23}{subsection.2.2.4}
+\contentsline {subsubsection}{Uniqueness}{23}{equation.2.2.13}
+\contentsline {subsubsection}{Existence and representation}{23}{equation.2.2.13}
+\contentsline {section}{\numberline {2.3}Thin resistive skin and highly conductive body asymptotic}{25}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Asymptotic expansions of the operators}{27}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Asymptotic expansions on the layers}{28}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Proof of Theorem\nobreakspace {}\ref {theorem:main-result}}{31}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Final formulation and notation}{31}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}The case of non-neutral charges in the body}{32}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.6}Multi-frequency measurements}{33}{subsection.2.3.6}
+\contentsline {section}{\numberline {2.4}Perturbation Induced by the Presence of a Target}{34}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}A Dipolar Expansion in the Presence of a Target}{34}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Post-processing}{35}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Numerical simulations}{35}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Direct Solver}{35}{subsection.2.5.1}
+\contentsline {subsubsection}{The case without target}{35}{subsection.2.5.1}
+\contentsline {subsubsection}{The case with a target}{37}{equation.2.5.56}
+\contentsline {subsection}{\numberline {2.5.2}Results}{38}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Conclusion}{38}{section.2.6}
+\contentsline {chapter}{\chapternumberline {3}A Space-Frequency Localization Algorithm}{41}{chapter.3}
+\contentsline {section}{\numberline {3.1}Introduction}{41}{section.3.1}
+\contentsline {section}{\numberline {3.2}Detection algorithm for multi-frequency measurements}{42}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Response matrix}{42}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}A location search algorithm}{42}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Numerical simulations}{44}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Target location}{44}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Target characterization}{50}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Concluding remarks}{53}{section.3.4}
+\contentsline {chapter}{\chapternumberline {4}Extraction of Generalized Polarization Tensors}{55}{chapter.4}
+\contentsline {section}{\numberline {4.1}Introduction}{55}{section.4.1}
+\contentsline {section}{\numberline {4.2}Structure of the Multistatic Response Matrix}{56}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}The asymptotic expansion of the perturbed potential field}{57}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Expansion for MSR using contracted GPT}{59}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Reconstruction of CGPTs and Stability Analysis}{60}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Analytical formula in the concentric setting}{60}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Measurement noise and stability analysis}{62}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}CGPT reconstruction in the limited-view setting}{64}{subsection.4.3.3}
+\contentsline {subsubsection}{Injectivity of $\mathbf {C}$}{65}{equation.4.3.35}
+\contentsline {subsubsection}{Explicit left inverse of $\mathbf {C}$}{65}{equation.4.3.38}
+\contentsline {subsubsection}{Ill-posedness in the limited-view setting}{67}{remark.4.3.12}
+\contentsline {section}{\numberline {4.4}Numerical Results}{67}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Reconstruction of CGPTs}{68}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Partial View Setting}{69}{subsection.4.4.2}
+\contentsline {section}{\numberline {4.5}Conclusion}{70}{section.4.5}
+\contentsline {chapter}{\chapternumberline {5}Dictionary Matching}{73}{chapter.5}
+\contentsline {section}{\numberline {5.1}Introduction}{73}{section.5.1}
+\contentsline {section}{\numberline {5.2}Complex CGPTs under Rigid Motions and Scaling}{74}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Some properties of complex CGPTs}{77}{subsection.5.2.1}
+\contentsline {section}{\numberline {5.3}Shape Identification by the CGPTs}{77}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}CGPTs matching}{78}{subsection.5.3.1}
+\contentsline {subsubsection}{Determination of transform parameters}{78}{subsection.5.3.1}
+\contentsline {paragraph}{Case 1: Rotational symmetric shape.}{78}{equation.5.3.19}
+\contentsline {paragraph}{Case 2: Non rotational symmetric shape.}{78}{equation.5.3.21}
+\contentsline {subsubsection}{Debiasing by least squares solutions}{79}{equation.5.3.23}
+\contentsline {subsubsection}{First algorithm for shape identification}{79}{equation.5.3.25}
+\contentsline {subsection}{\numberline {5.3.2}Transform invariant shape descriptors}{79}{subsection.5.3.2}
+\contentsline {subsubsection}{Second algorithm for shape identification}{80}{equation.5.3.30}
+\contentsline {section}{\numberline {5.4}Numerical Experiments}{80}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Matching on a dictionary of flowers}{81}{subsection.5.4.1}
+\contentsline {paragraph}{Stability.}{81}{figure.5.2}
+\contentsline {subsection}{\numberline {5.4.2}Dictionary of letters}{82}{subsection.5.4.2}
+\contentsline {paragraph}{Performance of Algorithm 1.}{83}{subsection.5.4.2}
+\contentsline {paragraph}{Stability.}{83}{figure.5.6}
+\contentsline {paragraph}{Performance of Algorithm 2.}{83}{figure.5.6}
+\contentsline {paragraph}{Performance of Algorithm 2 with partial aperture}{84}{figure.5.6}
+\contentsline {section}{\numberline {5.5}Conclusion}{84}{section.5.5}
+\contentsline {chapter}{\chapternumberline {6}Tracking of a Mobile Target}{91}{chapter.6}
+\contentsline {section}{\numberline {6.1}Introduction}{91}{section.6.1}
+\contentsline {section}{\numberline {6.2}Tracking of a mobile target}{92}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Time dependent data acquisition}{92}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Time relationship between CGPTs}{92}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Tracking by the Extended Kalman Filter}{93}{subsection.6.2.3}
+\contentsline {subsubsection}{System state observation equations}{94}{subsection.6.2.3}
+\contentsline {subsubsection}{Linearization of the observation equation}{95}{equation.6.2.16b}
+\contentsline {section}{\numberline {6.3}Numerical results}{95}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Numerical experiments of tracking in the full-view setting}{95}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Tracking in the limited-view setting}{96}{subsection.6.3.2}
+\contentsline {section}{\numberline {6.4}Conclusion}{96}{section.6.4}
+\contentsline {chapter}{\chapternumberline {7}Shape Recognition and Classification in Electro-Sensing}{101}{chapter.7}
+\contentsline {section}{\numberline {7.1}Introduction}{101}{section.7.1}
+\contentsline {section}{\numberline {7.2}Feature extraction from induced current measurements}{102}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Electro-sensing model}{102}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Asymptotic formalism}{103}{subsection.7.2.2}
+\contentsline {subsection}{\numberline {7.2.3}Data acquisition and reduction}{105}{subsection.7.2.3}
+\contentsline {section}{\numberline {7.3}Recognition and classification}{108}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}Fixed frequency setting: shape descriptor based classification}{108}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Multifrequency setting: Spectral induced polarization based classification}{108}{subsection.7.3.2}
+\contentsline {subsection}{\numberline {7.3.3}Background field elimination}{109}{subsection.7.3.3}
+\contentsline {section}{\numberline {7.4}Numerical illustrations}{110}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Setup and methods}{110}{subsection.7.4.1}
+\contentsline {subsubsection}{Dictionary}{110}{subsection.7.4.1}
+\contentsline {subsubsection}{Measurements}{110}{figure.7.2}
+\contentsline {subsubsection}{Classification}{112}{figure.7.4}
+\contentsline {subsubsection}{Stability analysis}{112}{ALC@unique.21}
+\contentsline {subsection}{\numberline {7.4.2}Results and discussion}{113}{subsection.7.4.2}
+\contentsline {subsubsection}{Fixed frequency setting: shape descriptors}{113}{subsection.7.4.2}
+\contentsline {subsubsection}{Multifrequency setting: spectral content of PTs}{113}{subsection.7.4.2}
+\contentsline {subsubsection}{Background field elimination}{113}{subsection.7.4.2}
+\contentsline {section}{\numberline {7.5}Figures}{113}{section.7.5}
+\contentsline {section}{\numberline {7.6}Concluding remarks}{113}{section.7.6}
+\contentsline {chapter}{\chapternumberline {8}Conclusion and Perspectives}{119}{chapter.8}
+\contentsline {chapter}{Appendices}{121}{section*.7}
+\contentsline {appendix}{\chapternumberline {A}Several Technical Estimates}{123}{appendix.A}
+\contentsline {section}{\numberline {A.1}The truncation error in the MSR expansion}{123}{section.A.1}
+\contentsline {section}{\numberline {A.2}Proof of formula \textup {\hbox {\mathsurround \z@ \normalfont (\ignorespaces \ref {eq:DGamma}\unskip \@@italiccorr )}}}{125}{section.A.2}
+\contentsline {section}{\numberline {A.3}Proof of formula \textup {\hbox {\mathsurround \z@ \normalfont (\ignorespaces \ref {eq:ortho}\unskip \@@italiccorr )}}}{126}{section.A.3}
+\contentsline {appendix}{\chapternumberline {B}Kalman Filters}{127}{appendix.B}
+\contentsline {section}{\numberline {B.1}Kalman Filter}{127}{section.B.1}
+\contentsline {section}{\numberline {B.2}Extended Kalman Filter}{128}{section.B.2}

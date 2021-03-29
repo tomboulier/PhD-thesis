@@ -1,0 +1,274 @@
+\chapter{Several Technical Estimates}\label{sec:append-sever-techn}
+\section{The truncation error in the MSR expansion}
+\label{sec:app1}
+
+Recall the expansion of the element in the MSR matrix
+\eqref{eq:Vrsexp}. We prove the following estimate of the
+truncation error.
+\begin{proposition} \label{prop:Ers}
+Let $E_{rs}$ be as in \eqref{eq:Vrsexp}. Set $\rho = \delta/R$,
+the ratio between the typical length scale of the inclusion $D$
+and the distance of the receivers (sources) from the inclusion.
+Assume also that $\rho$ is much smaller than one. Then
+\begin{equation}
+|E_{rs}| \lesssim \rho^{K+2}. \label{eq:prop:Ers}
+\end{equation}
+\end{proposition}
+\begin{proof} From the Taylor expansion of multivariate functions (\cite{Taylor1}, Chapter 1),  we verify that the truncation error $E_{rs}$ can be written as
+\begin{equation*}
+\begin{aligned}
+\int_{\partial D} e_K(y; x_r,z) (\lambda I - \mathcal{K}_D^*)^{-1}
+\bigg[\frac{\partial G(\cdot - x_s)}{\partial \nu}\bigg]&(y) ds(y) \\
++ \int_{\partial D}  G_K(y; x_r, z) &(\lambda I -
+\mathcal{K}_D^*)^{-1} \bigg[\frac{\partial}{\partial \nu}
+e_K(\cdot; z, x_s)\bigg](y) ds(y).
+\end{aligned}
+\end{equation*}
+Here, $G_K(y; x_r,z)$ and $e_K(y; x_r,z)$ (and similarly
+$e_K(y; z, x_s)$) are given by\begin{equation*}
+\begin{aligned}
+G_K(y; x_r,z) &= \sum_{k=1}^K \sum_{|\alpha| = k} \frac{(-1)^{|\alpha|}}{\alpha!} \partial^{\alpha} G(x_r - z) (y-z)^\alpha,\\
+ e_K(y; x_r, z) &= \sum_{|\alpha|=K+1} \Big( \frac{1}{\alpha!} \int_0^1 (1-s)^K \partial^\alpha G(x_r - z - s(y-z)) ds \Big) (y-z)^\alpha.
+\end{aligned}
+\end{equation*}
+
+Due to the invariance relation \eqref{eq:ImKrot}, the operator
+$(\lambda I - \mathcal{K}_D^*)^{-1}$, as an operator from the
+space $L^2(\partial D)$ to itself, is bounded uniformly with
+respect to the scaling of $D$. Consequently, the first term in
+$E_{rs}$ is bounded by
+\begin{equation*}
+C \|e_K(\cdot; x_r,z)\|_{L^\infty(\partial D)} \|\frac{\partial
+G(\cdot - x_s)}{\partial \nu}\|_{L^2(\partial D)} |\partial
+D|^{\frac{1}{2}} \le C \|e_K\|_{L^\infty(\partial D)}
+\|\frac{\partial G(\cdot - x_s)}{\partial
+\nu}\|_{L^\infty(\partial D)} |\partial D|.
+\end{equation*}
+Assume that $z \in D$; the distance between $\overline{D}$ and the
+receivers (sources) is of order $R$. From the above expression of
+$e_K$, the explicit form of $\partial^\alpha G$ in
+\eqref{eq:DGamma}, and the fact that $|y-z| \le C\delta$ for $y
+\in \overline{D}$, we have
+\begin{equation*}
+|e_K(y; x_r, z)| \le C \left(\sum_{|\alpha| = K+1}
+\frac{1}{\alpha!} \|\partial^\alpha G_r(x_r -
+\cdot)\|_{\mathcal{C}(\overline{D})}\right) |y-z|^{K+1} \le C
+\left(\frac{\delta}{R}\right)^{K+1}.
+\end{equation*}
+Similarly, we have $\|\partial_\nu G(\cdot -
+x_s)\|_{L^\infty(\partial D)} \le CR^{-1}$. The measure $|\partial
+D|$ in dimension two is of order $\delta$. Substituting these
+estimates into the bound for the first term in $E_{rs}$, we see
+that it is bounded by $C\rho^{K+2}$.
+
+The second term can be bounded from above by
+\begin{equation*}
+C \|G_K\|_{L^\infty(\partial D)} \|\frac{\partial e_K(\cdot;
+z, x_s)}{\partial \nu}\|_{L^\infty(\partial D)} |\partial D|.
+\end{equation*}
+We have $\|G_K(\cdot; x_r, z)\|_{L^\infty(\partial D)} \le
+C\rho$, which is the order of the leading term. Further, from the
+explicit form of $e_K$, we verify that
+\begin{equation*}
+\|\frac{\partial e_K(\cdot; z, x_s)}{\partial
+\nu}\|_{L^\infty(\partial D)} \le C \left( \|G(\cdot -
+x_s)\|_{\mathcal{C}^{K+2}(\overline{D})} \delta^{K+1} +
+\|G(\cdot - x_s)\|_{\mathcal{C}^{K+1}(\overline{D})} \delta^K
+\right) \le C\frac{\delta^K}{R^{K+1}}.
+\end{equation*}
+ As
+a result, the above upper bound for the second term in $E_{rs}$ is
+of order $\rho^{K+2}$ as well. This proves \eqref{eq:prop:Ers}.
+\end{proof}
+
+\begin{proposition} The solution $u_s(x)$ defined by the transmission problem \eqref{eq:transm}
+satisfies the symmetry property
+\begin{equation}
+u_s(x_r) = u_r(x_s). \label{eq:Vsym}
+\end{equation}
+\end{proposition}
+\begin{proof} Let $\Omega^\rho_s$ be the the ball of radius $\rho$
+centered at $x_s$, and $\Omega^\rho_r$ the ball of radius $\rho$
+centered at $x_r$. Let $\Omega_\rho$ be the domain $B_R
+\backslash(\Omega^\rho_r \cup \Omega^\rho_s \cup D)$ where $B_R$
+is a sufficiently large ball with radius $R$. Then we have
+\begin{equation*}
+\begin{aligned}
+0 &= \int_{\Omega_\rho} \bigg(u_s(x) \Delta u_r(x) - u_r(x) \Delta
+u_s(x)\bigg) dx = \int_{\partial \Omega_\rho} \bigg( u_s(x)
+\frac{\partial u_r}{\partial n} (x) - u_r(x) \frac{\partial
+u_s}{\partial n} (x)
+\bigg) ds(x)\\
+&= -\int_{\partial \Omega^\rho_s} \bigg( u_s(x) \frac{\partial
+u_r}{\partial n} (x) - u_r(x) \frac{\partial u_s}{\partial n} (x)
+\bigg) ds(x) - \int_{\partial \Omega^\rho_r} \bigg( u_s(x)
+\frac{\partial u_r}{\partial n} (x) - u_r(x) \frac{\partial
+u_s}{\partial n} (x) \bigg)
+ ds(x)\\
+ & \quad - \int_{\partial D} \bigg( u_s(x) \frac{\partial u_r}{\partial n}
+(x)\Big|_+ - u_r(x) \frac{\partial u_s}{\partial n} (x)\Big|_+
+\bigg) ds(x) + \int_{\partial B_R}\bigg(  u_s(x) \frac{\partial
+u_r}{\partial n} (x)\Big|_+ -
+u_r(x) \frac{\partial u_s}{\partial n} (x)\Big|_+ \bigg) ds(x)\\
+ &= J^\rho_s + J^\rho_r + J_D + J_R.
+\end{aligned}
+\end{equation*}
+
+For $J_D$, thanks to the jump conditions in \eqref{eq:transm}, we
+have that
+\begin{equation*}
+J_D = \kappa \int_{\partial D} \bigg( u_r(x) \frac{\partial
+u_s}{\partial n} (x)\Big|_-  - u_s(x) \frac{\partial u_r}{\partial
+n} (x)\Big|_- \bigg) ds(x) = \kappa \int_D  \bigg( u_r(x) \Delta
+u_s(x) - u_s(x) \Delta u_r(x) \bigg) dx = 0.
+\end{equation*}
+
+The other two terms $J^\rho_s$ and $J^\rho_r$ can be treated
+similarly; hence we focus on the first item. We've shown that
+$u_s(x) = G(x-x_s) + \mathcal{S}_D[\phi_s]$. In a
+neighborhood of $\Omega^\rho_s$,  we have
+\begin{equation*}
+\|u_r\|_{L^\infty} + \|\nabla u_r\|_{L^\infty} + \|\mathcal{S}_D
+[\phi_s]\|_{L^\infty} + \|\nabla \mathcal{S}_D [\phi_s]
+\|_{L^\infty} \le C.
+\end{equation*}
+Consequently,
+\begin{equation*}
+\left| \int_{\partial \Omega^\rho_s} u_s(x) \frac{\partial
+u_r}{\partial n} (x) \right| \le C\int_{\partial B_\rho(x_s)} (1+
+|\log \rho|) ds(x) \le C\rho |\log \rho|.
+\end{equation*}
+\begin{equation*}
+\left| \int_{\partial \Omega^\rho_s} u_r(x) \left(\frac{\partial
+u_s }{\partial n} (x) - \frac{\partial G }{\partial n} (x -
+x_s) \right) \right| ds(x) \le \left| \int_{\partial
+\Omega^\rho_s} u_r(x) \frac{\partial \mathcal{S}_D
+[\phi_s]}{\partial n} (x) ds(x)\right| \le  C\rho.
+\end{equation*}
+These estimates imply that
+\begin{equation*}
+\lim_{\rho \to 0} J^\rho_s = \lim_{\rho \to 0} \int_{\partial
+B_\rho(x_s)} u_r(x_s + y) \frac{\partial G}{\partial n} (y)
+ds(y) = \lim_{\rho \to 0} \frac{1}{2\pi \rho} \int_0^{2\pi} \rho
+u_r(x_s + \rho \theta) d\theta = u_r(x_s).
+\end{equation*}
+The same analysis applied to $J^\rho_r$ shows that $\lim_{\rho \to
+0} J^\rho_r = -u_s(x_r)$.
+
+To control $J_R$, we recall the fact that $\mathcal{S}_D[\phi]$
+decays as $|x|^{-1}$ and $\nabla \mathcal{S}_D[\phi]$ decays as
+$|x|^{-2}$ for $\phi \in L^2(\partial D)$ satisfying
+$\int_{\partial D} \phi ds = 0$; these estimates imply that the
+logarithmic part of $u_s$ dominates. Therefore,
+\begin{equation*}
+\lim_{R \to \infty} J_R = \lim_{R \to \infty} \int_{\partial B_R}
+\log|x-x_s| \frac{\langle \nu_x, x-x_r\rangle}{|x-x_r|^2} -
+\log|x-x_r| \frac{\langle \nu_x, x-x_s\rangle}{|x-x_s|^2} ds(x).
+\end{equation*}
+The integrand above can be written as
+\begin{equation*}
+\left(\log \frac{|x-x_s|}{|x-x_r|}\right) \frac{\langle \nu_x, x -
+x_r\rangle}{|x-x_r|^2} + \log|x-x_r| \left[ \frac{\langle \nu_x, x
+- x_r\rangle}{|x-x_r|^2} - \frac{\langle \nu_x, x -
+x_s\rangle}{|x-x_s|^2}\right].
+\end{equation*}
+We verify that the first term is of order $o(\frac{1}{R})$; its
+contribution to the limiting integral is hence negligible. The
+second term in the integrand can be further written as
+\begin{equation*}
+\log|x-x_r| \left[ \langle \nu_x, x - x_r \rangle
+\left(\frac{1}{|x - x_r|^2} - \frac{1}{|x-x_s|^2}\right) +
+\frac{\langle \nu_x, x - x_r - (x - x_s)\rangle}{|x-x_s|^2}
+\right].
+\end{equation*}
+From
+\begin{equation*}
+\frac{1}{|x - x_r|^2} - \frac{1}{|x-x_s|^2} = \frac{|x_s|^2 -
+|x_r|^2 + 2\langle x, x_r - x_s \rangle}{|x - x_r|^2 |x-x_s|^2},
+\end{equation*}
+we verify that the second term in the integrand is of order
+$O(\log R/R^2)$; hence its contribution to the limiting integral
+is also zero. To summarize, we have $\lim_{R \to \infty} J_R = 0$.
+
+From the above analysis, we take the limit $\rho \to 0, R \to
+\infty$ on the equality $0 = J^\rho_s + J^\rho_r + J_D + J_R$ and
+conclude that \eqref{eq:Vsym} holds.
+\end{proof}
+
+
+
+\section{Proof of formula \eqref{eq:DGamma}}
+\label{sec:app2} Formula \eqref{eq:DGamma} is well-known. We
+include a proof for reader's sake.
+
+In order to prove \eqref{eq:DGamma}, we need to find the
+derivative of the function $\log |x|$. To this end, we consider
+the Taylor expansion of the logarithmic function around the point
+$x$. The most convenient method for this expansion is to view the
+space variables as complex numbers. For a small perturbation $z$
+of the point $x$ ($x, z \in \mathbb{C}$), we calculate
+\begin{equation*}
+\log |x-z| - \log|x|= \frac{1}{2} \left([\log (x - z) - \log x ]+
+[\log (\overline{x} - \overline{z}) - \log \overline{x}] \right).
+\end{equation*}
+To expand the first item on the right-hand side of the above
+equality, we write it as $\log (1-\frac{z}{x})$, and since
+$|\frac{z}{x}| < 1$ we obtain the expansion
+\begin{equation*}
+\log (1- \frac{z}{x}) = -\sum_{j=1}^\infty \frac{1}{j}
+\left(\frac{z}{x}\right)^j = -\sum_{j=1}^\infty \frac{1}{j} \left(
+\frac{r_z e^{i\theta_z}}{r_x e^{i\theta_x}} \right)^j.
+\end{equation*}
+Taking the conjugate, we obtain the expansion for
+$\log(\overline{x} - \overline{z}) - \log \overline{x}$.
+Consequently, we have
+\begin{equation*}
+\begin{aligned}
+\log |x-z| - \log|x| &= -\frac{1}{2} \sum_{j=1}^\infty \frac{1}{j} \left[ \left( \frac{r_z e^{i\theta_z}}{r_x e^{i\theta_x}} \right)^j + \left( \frac{r_z e^{-i\theta_z}}{r_x e^{-i\theta_x}} \right)^j \right]\\
+&= -\sum_{j=1}^\infty \frac{1}{j} \left(\frac{\cos j\theta_x}{r_x^j} [r_z^j \cos j\theta_z] + \frac{\sin j\theta_x}{r_x^j} [r_z^j \sin j\theta_z] \right)\\
+&= -\sum_{j=1}^\infty \frac{1}{j} \left(\frac{\cos
+j\theta_x}{r_x^j} \sum_{|\alpha| = j} a^j_\alpha z^\alpha +
+\frac{\sin j\theta_x}{r_x^j} \sum_{|\alpha| = j} b^j_\alpha
+z^\alpha  \right).
+\end{aligned}
+\end{equation*}
+In the last equality, we understood the variable $z$ as real
+variable and used the representation \eqref{eq:abcomp}. Compare
+the last term of the above formula with the (real-variable)
+multivariate expansion of $\log |x-z| - \log |x|$, we observe that
+\begin{equation*}
+\sum_{|\alpha| = j} \frac{(-1)^j}{\alpha!} (\partial^\alpha_x
+\log|x|) z^\alpha = -\sum_{|\alpha| = j} \frac{1}{j}
+\left(\frac{\cos j\theta_x}{r_x^j}  a^j_\alpha + \frac{\sin
+j\theta_x}{r_x^j} b^j_\alpha  \right)z^\alpha .
+\end{equation*}
+For each double index $\alpha$, we get \eqref{eq:DGamma}.
+\section{Proof of formula \eqref{eq:ortho}}
+\label{sec:app3}
+ The proof is a straightforward computation. The elements of the
+matrix $\Ccoef^t \Ccoef$ correspond to inner products of columns
+of the matrix $\Ccoef$, that is, the inner products of vectors
+formed by evaluating $\sin$ and $\cos$ functions at $(k_1
+\theta_1, \ldots, k_1 \theta_N)$ and at $(k_2 \theta_1, \ldots,
+k_2 \theta_N)$, where $k_1, k_2 = 1, 2, \ldots, K$, $k_1 + k_2 \le
+2K < N$, and $\theta_j = 2\pi j/N$, $j=1, 2, \ldots, N$. When two
+$\cos$ vectors are chosen, the inner product becomes
+\begin{equation*}
+\sum_{j=1}^N \cos k_1 \theta_j \cos k_2 \theta_j =  \frac{1}{4}
+\sum_{j=1}^N \left( e^{i\frac{2\pi (k_1 + k_2) j}{N}} +
+e^{-i\frac{2\pi (k_1 + k_2) j}{N}} + e^{i\frac{2\pi (k_1 - k_2)
+j}{N}} + e^{-i\frac{2\pi (k_1 - k_2) j}{N}} \right).
+\end{equation*}
+Since $k_1 + k_2$ is an integer less than $N$, the first two sums
+always vanish because
+\begin{equation*}
+\sum_{j=1}^N e^{i\frac{2\pi(k_1 + k_2)j}{N}} = \frac{1-e^{i
+2\pi(k_1+k_2)}}{1-e^{i\frac{2\pi(k_1+k_2)}{N}}} = 0.
+\end{equation*}
+When $k_1 = k_2$, the last two sums contribute and the overall
+result is $N/2$. When $k_1 \ne k_2$, the inner products under
+estimation is zero according to the above observation.
+
+The case of inner product with $\sin$ and $\sin$ or $\cos$ and
+$\cos$ vectors can be similarly analyzed, and it can be easily
+seen that \eqref{eq:ortho} holds.
